@@ -8,6 +8,8 @@ from django.conf import settings
 from django.http import JsonResponse
 import simplejson as json
 import requests
+from itertools import islice
+
 from .models import remarks
 from .models import credentials
 from .models import github
@@ -191,7 +193,6 @@ def display_data_folders(request):
             updated_local_directory_name = ''
 
         list_data = os.popen('ls ~/'+updated_local_directory_name+'/data/').read()
-
         directories = list_data.split()
         dataFolders = []
         print(directories)
@@ -201,38 +202,52 @@ def display_data_folders(request):
             direcPath = direcPath.split()
 
             if os.path.isdir(direcPath[0]):
+                try:
 
-                if os.path.exists(direcPath[0] + '/donkeycar-console.json') == True:
-                    with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
-                        data = json.load(outfile)
-                        print(data)
-                    tmp = data["no"]
-                    noImages = os.popen('ls -l ~/' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
-                    data["no"] = noImages
+                    if os.path.exists(direcPath[0] + '/donkeycar-console.json') == True:
+                        print("it exists")
+                    else:
+                        with open(direcPath[0] + '/donkeycar-console.json', 'w') as outfile:
+                            noImages = os.popen('ls -l ~/'+updated_local_directory_name+'/data/' + dir + ' | grep .jpg | wc -l').read()
+                            noImages.strip()
+                            print(noImages)
+                            noImages = int(noImages)
 
-                    with open(direcPath[0] + '/donkeycar-console.json', 'w') as jsonFile:
-                        json.dump(data, jsonFile)
-                else:
-                    with open(direcPath[0] + '/donkeycar-console.json', 'w') as outfile:
-                        noImages = os.popen('ls -l ~/'+updated_local_directory_name+'/data/' + dir + ' | grep .jpg | wc -l').read()
-                        noImages.strip()
-                        print(noImages)
-                        noImages = int(noImages)
+                            year = os.popen('date +"%Y"').read()
+                            time = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $8}'").read()
+                            month = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $6}'").read()
+                            day = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $7}'").read()
+                            date = year + " " + month + " " + day + " " + time
+                            d = datetime.strptime(date, '%Y\n %b\n %d\n %H:%M\n')
+                            d = d.strftime('%Y-%m-%d %H:%M')
+                            json.dump({"name": dir, "no": noImages, "date": d, "remarks": []}, outfile)
 
-                        year = os.popen('date +"%Y"').read()
-                        time = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $8}'").read()
-                        month = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $6}'").read()
-                        day = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $7}'").read()
-                        date = year + " " + month + " " + day + " " + time
-                        d = datetime.strptime(date, '%Y\n %b\n %d\n %H:%M\n')
-                        d = d.strftime('%Y-%m-%d %H:%M')
-                        json.dump({"name": dir, "no": noImages, "date": d, "remarks": []}, outfile)
+                    with open(direcPath[0] + '/donkeycar-console.json', 'r') as result:
+                        data = json.load(result)
+                        dataFolders.append(data)
 
-                with open(direcPath[0] + '/donkeycar-console.json', 'r') as result:
-                    data = json.load(result)
-                    dataFolders.append(data)
+
+                except json.JSONDecodeError:
+                        os.system('sudo rm -r ' + direcPath[0] + '/donkeycar-console.json')
+
 
         dataFolders.sort(key=itemgetter('date'), reverse=True)
+        iterator = islice(dataFolders, 10)
+        for item in iterator:
+            print(item)
+            dir = item["name"]
+
+            direcPath = os.popen('echo ~/' + updated_local_directory_name + '/data/' + dir).read()
+            direcPath = direcPath.split()
+            with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
+                data = json.load(outfile)
+                print(data)
+            tmp = data["no"]
+            noImages = os.popen('ls -l ~/' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
+            data["no"] = noImages
+            with open(direcPath[0] + '/donkeycar-console.json', 'w') as jsonFile:
+                json.dump(data, jsonFile)
+
         print(dataFolders)
         context = {
             'result': dataFolders,
