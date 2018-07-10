@@ -1,0 +1,7 @@
+django==2.0.5
+apscheduler
+boto3
+boto
+uwsgi
+requests
+simplejson

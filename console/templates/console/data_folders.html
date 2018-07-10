@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-us">
+            {% extends 'console/index.html' %}
+
+	<head>
+		<meta charset="utf-8">
+		<title> SmartAdmin </title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/static/dist/css/skins/_all-skins.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+
+		<style>
+
+
+			a.btn:hover {
+     -webkit-transform: scale(1.1);
+     -moz-transform: scale(1.1);
+     -o-transform: scale(1.1);
+ }
+ a.btn {
+     -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+     -o-transform: scale(0.8);
+     -webkit-transition-duration: 0.5s;
+     -moz-transition-duration: 0.5s;
+     -o-transition-duration: 0.5s;
+ }
+		</style>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	</head>
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+ {% block content %}
+    <!-- Content Header (Page header) -->
+
+    <section class="content-header">
+                     <ol class="breadcrumb">
+
+            <a href="/data/empty/folder/delete" class="btn btn-primary a-btn-slide-text">
+       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <span><strong>Delete Empty Folders</strong></span>
+    </a>
+              </ol>
+
+
+    </section>
+</br>
+ </br>
+
+    <!-- Main content -->
+    <section class="content" id="data">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+   <h3>
+        &nbsp; &nbsp;Data Folders
+      </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Folder</th>
+                  <th>Images Number</th>
+                  <th>Creation Time</th>
+                  <th>Remarks</th>
+					<th> Actions</th>
+
+                </tr>
+                </thead>
+                <tbody>
+    {% if result %}
+
+    {% for  elt in result %}
+         <tr onclick="myFunction(this)">
+   <td> <label id="data_name">{{elt.name}}</label> </td>
+        <td> <label>{{elt.no}}</label> </td>
+             <td> <label>{{elt.date}}</label> </td>
+<td>
+                  {% for  comment in elt.remarks %}
+              <li>{{comment}} &emsp; &emsp; &emsp; <a href="/data/comment/delete/?comment={{comment}}&name={{elt.name}}">Delete</a></li>
+              {% endfor %}
+                      <form >
+         {% csrf_token %}
+<table>
+    <tr></tr>
+      <input type="hidden" name="data_name" value={{elt.name}} />
+    <td>
+
+      <textarea rows="1" cols="20" id="{{elt.name}}" name="data_comment"> </textarea></td>
+
+    </table>
+
+                      </form>
+</td>
+<td>
+    <a href="/data/download?dir={{ elt.name }}" class="btn btn-primary a-btn-slide-text">
+        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+        <span><strong>Download</strong></span>
+    </a>
+
+    <a href="/data/delete?name={{ elt.name }}" class="btn btn-primary a-btn-slide-text">
+       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <span><strong>Delete</strong></span>
+    </a>
+
+             </td>
+
+                </tr>
+  {% endfor %}
+
+    {% else %}
+    <p>No Data available.</p>
+    {% endif %}
+
+                </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+
+ {% endblock %}
+
+
+
+	</body>
+
+</html>

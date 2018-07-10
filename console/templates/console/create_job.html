@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+                    {% extends 'console/index.html' %}
+
+		<meta charset="utf-8">
+		<title> SmartAdmin </title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+
+
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/static/dist/css/skins/_all-skins.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+  <![endif]-->
+
+          <link rel="stylesheet" href="/static/plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/static/bower_components/select2/dist/css/select2.min.css">
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	</head>
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+ {% block content %}
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Content Header (Page header) -->
+                <form action="/job/create/" method="POST">
+                                           {% csrf_token %}
+
+
+    <section class="content-header">
+
+                   <h1>
+        Create  New Job
+        <small></small>
+      </h1>
+        <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="/static/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/bower_components/fastclick/lib/fastclick.js"></script>
+
+    <section class="content">
+
+      <div class="row">
+        <div >
+          <div class="box">
+            <div class="box-header">
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+              <table id="example2" class="table table-bordered table-hover">
+
+                              <script>
+                       function checkAll(ele) {
+     var checkboxes = document.getElementsByTagName('input');
+     if (ele.checked) {
+         for (var i = 0; i < checkboxes.length; i++) {
+             if (checkboxes[i].type == 'checkbox') {
+                 checkboxes[i].checked = true;
+             }
+         }
+     } else {
+         for (var i = 0; i < checkboxes.length; i++) {
+             console.log(i)
+             if (checkboxes[i].type == 'checkbox') {
+                 checkboxes[i].checked = false;
+             }
+         }
+     }
+ }
+                  </script>
+
+                <thead>
+                <tr>
+   <th><input type="checkbox" onchange="checkAll(this)"  /> </th>
+                  <th>Folder</th>
+                  <th>Images Number</th>
+                  <th>Creation Time</th>
+                  <th>Remarks</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+    {% if result %}
+
+    {% for  elt in result %}
+         <tr >
+                                 <td> <input  type="checkbox" name="chk[]" value="{{elt.name}}"/></td>
+
+   <td> <label id="data_name">{{elt.name}}</label> </td>
+        <td> <label>{{elt.no}}</label> </td>
+             <td> <label>{{elt.date}}</label> </td>
+<td>
+                  {% for  comment in elt.remarks %}
+    <li>{{comment}}</li>
+              {% endfor %}
+</td>
+
+                </tr>
+  {% endfor %}
+
+
+    {% endif %}
+
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+
+
+
+    </section>
+  <section class="content">
+
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title"></h3>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+
+              <div class="form-group">
+                          <div class="col-md-2">
+
+                              <label> &nbsp; EC2 Instance Type</label></div>
+             <div class="col-md-10">
+ <select class="form-control select2" name="choice" id="sel1" style="width: 80%;">
+                          <option disabled selected value> -- select an option -- </option>
+
+        {% for elt in choices %}
+
+        {% ifequal elt selected_elt %}
+            <option  value="{{elt}}" selected="selected">{{ elt }}</option>
+        {% else %}
+            <option value="{{elt}}"> {{elt}}</option>
+        {% endifequal %}
+    {% endfor %}
+
+ </select></div></div>
+
+
+              <!-- /.form-group -->
+            </div>
+
+        </br>
+                        <div class="row">
+
+
+
+
+              <div class="form-group">
+                                            <div class="col-md-2">
+
+                <label>&nbsp;Availability Zone</label>
+                                            </div>
+                                            <div class="col-md-10">
+
+                <select class="form-control select2" id="abc" name="AZ" style="width: 80%;">
+
+                </select>
+                                            </div>
+              </div>
+
+                          </div>
+
+              <!-- /.form-group -->
+            <!-- /.col -->
+
+              <!-- /.form-group -->
+
+            <!-- /.col -->
+
+          <!-- /.row -->
+
+        <!-- /.box-body -->
+      <!-- /.box -->
+      </br>
+
+      <div class="row">
+        <div>
+
+             <div class="bootstrap-timepicker">
+
+
+                <div class="form-group">
+                                            <div class="col-md-2">
+
+                  <label>&nbsp;Ec2 Termination Time:</label>
+
+                                            </div>
+                                                                <div class="col-md-10">
+
+                  <div class="input-group" style="width: 80%;">
+                    <input type="text" value="20"  name="max_time" class="form-control timepicker" >
+
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                  </div>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                                 </center>
+                <!-- /.form group -->
+              </div>
+        </div>
+      </div>
+                 <!-- /.form group -->
+        </br>
+
+          <div class="row">
+
+
+              <!-- time Picker -->
+              <div class="bootstrap-timepicker">
+
+                <div class="form-group">
+                                                                <div class="col-md-2">
+                  <label>&nbsp;Spot Request Time:</label></center>
+                                                                </div>
+                                                                                    <div class="col-md-10">
+
+                  <div class="input-group" style="width: 80%;">
+
+                    <input type="text" value="2"  name="request_time" class="form-control timepicker" >
+
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                  </div>
+                  </div>
+                  <!-- /.input group -->
+                <!-- /.form group -->
+
+              </div>
+
+
+            </div>
+            <!-- /.box-body -->
+          </div>
+
+            <div class="row"></div><!-- /.box -->
+</div>
+                </br></br>
+
+      </div>
+      {% if errorMessage %}
+         <h1> {{ errorMessage }}</h1>
+        {% endif %}
+
+
+    {% if message  %}
+
+   <div class="box-body">
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i>   {{message}} </h4>
+              </div>{% endif %}
+  </section>
+ <section>
+ <button type="submit" style="padding: 10px 50px;" class="btn bg-maroon btn-flat margin" >Submit</button>
+
+
+
+      <!-- /.row -->
+
+    </section>
+                </form>
+ {% endblock %}
+
+	</body>
+
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+            {% extends 'console/index.html' %}
+
+		<meta charset="utf-8">
+		<title> SmartAdmin </title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+
+
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/static/dist/css/skins/_all-skins.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<style>
+
+
+			a.btn:hover {
+     -webkit-transform: scale(1.1);
+     -moz-transform: scale(1.1);
+     -o-transform: scale(1.1);
+ }
+ a.btn {
+     -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+     -o-transform: scale(0.8);
+     -webkit-transition-duration: 0.5s;
+     -moz-transition-duration: 0.5s;
+     -o-transition-duration: 0.5s;
+ }
+		</style>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	</head>
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+{% block content %}
+
+
+    <!-- Content Header (Page header) -->
+</br>
+<section>
+                  {% if success %}
+   <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="iicon fa fa-check"></i>   {{success}} </h4>
+              </div>{% endif %}
+</section>
+    <section class="content-header">
+           <div id="stop_autopilot"> </div>  </td>
+
+
+              <ol class="breadcrumb">
+
+      <a href="/job/create/">      <button type="button" style="padding: 5px 50px;" class="btn bg-maroon btn-flat margin">ADD JOB</button> </a>
+              </ol>
+    </section>
+</br>
+
+</br>
+
+</br>
+
+    <!-- Main content -->
+    <section class="content" id="jobs">
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+
+
+       <h3> &nbsp; &nbsp;Jobs </h3>
+
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                            <div class="box-body">
+
+              <table id="example2" class="table table-hover">
+                  <script>
+                       function checkAll(ele) {
+     var checkboxes = document.getElementsByTagName('input');
+     if (ele.checked) {
+         for (var i = 0; i < checkboxes.length; i++) {
+             if (checkboxes[i].type == 'checkbox') {
+                 checkboxes[i].checked = true;
+             }
+         }
+     } else {
+         for (var i = 0; i < checkboxes.length; i++) {
+             console.log(i)
+             if (checkboxes[i].type == 'checkbox') {
+                 checkboxes[i].checked = false;
+             }
+         }
+     }
+ }
+                  </script>
+
+
+
+              <thead>
+                <tr>
+       <th>Job</th>
+          <th> Data Size</th>
+         <th>Tubs</th>
+         <th>Starting Time</th>
+         <th> Training Duration </th>
+         <th>State</th>
+          <th> Request State</th>
+         <th>Instance Type - AZ</th>
+          <th>Price</th>
+         <th> Size </th>
+         <th>Remarks</th>
+          <th> Autopilot</th>
+          <th> Actions</th>
+                    <th></th>
+                </tr>
+
+                </thead>
+                  <tbody>
+                  {% if models %}
+        {% for  model in models %}
+
+      <tr>
+         <td>{{ model.id }}</td>
+          <td>{{model.tarfile_size}}</td>
+
+
+          <td> {% for  tub in model.tubs %}<span  class="label label-primary" >{{tub}}  </br></span>{% endfor %}</td>
+
+
+         <td> {{model.date| date:"Y-m-d H:i"}}</td>
+         <td> {{model.duration}}</td>
+                  {% if model.state == "Finished" %}
+
+
+          <td>  <span class="label label-success"> {{ model.state }} </span></td>
+          {% else %}
+                            {% if model.state == "Pending" %}
+                    <td>  <span class="label label-warning"> {{ model.state }} </span></td>
+
+                                {% else %}
+                              <td>  <span class="label label-danger"> {{ model.state }} </span></td>
+          {% endif %}
+                    {% endif %}
+
+
+          <td><span class="label label-warning"> {{model.request_state}}</span></td>
+          <td><div style="width: 100px;"> <span  class="label label-primary" >{{model.instance }}  </br></span><span  class="label label-primary" >{{model.availability_zone }} </span></div> </td>
+          <td>{{model.price}}</td>
+
+             <td> {{model.size}} </td>
+       <td>   {% for  remark in model.Comments.all %}
+              <li>{{remark.remark}} &emsp; &emsp; &emsp; <a href="/job/remark/delete?id={{ remark.id }}">Delete</a></li>
+              {% endfor %}
+             <table>
+                    <tr> </tr>
+<form action="/job/remark/add/" method="POST">
+         {% csrf_token %}
+
+<tr></tr>
+                <input type="hidden" name="job_id" value={{model.id}} />
+          <textarea  rows="1" cols="20" name="user_comment" id="{{model.id}}"> </textarea>
+<td> &emsp;&emsp;</td>
+</tr>
+
+</form> </table></td>
+
+
+
+        {% if model.state == "Finished" %}
+
+          <td>  <a href="/autopilot?id={{ model.id }}" class="btn btn-primary a-btn-slide-text"><span class="glyphicon glyphicon-play" aria-hidden="true"></span>    <span><strong> Autopilot</strong></span></a>
+
+    {% else %}
+<td> </td>
+             {% endif %}
+
+<td>
+              <div class="input-group margin">
+                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-info">Action</button>
+                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    <span class="fa fa-caret-down"></span></button>
+                  <ul class="dropdown-menu">
+                      {% if model.log_url != "N/A"  and  model.commands_log_url != "N/A" %}
+
+                      <li>   <a href="/job/delete?id={{ model.id }}">     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete Job
+</a>
+              <a target="_blank" href={{model.log_url}} > <span class="glyphicon glyphicon-file" aria-hidden="true"></span>   Training Logs</a>
+              <a target="_blank" href={{model.commands_log_url}} > <span class="glyphicon glyphicon-file" aria-hidden="true"></span>    Commands Logs</a></li>
+                        {% else %}
+
+    {% if model.log_url != "N/A" and  model.commands_log_url == "N/A" %}
+          <li>  <a href="/job/delete?id={{ model.id }}" > <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  Delete
+</a> <a target="_blank" href={{model.log_url}} > <span class="glyphicon glyphicon-file" aria-hidden="true"></span>   Training logs </li>
+                                  {% else %}
+
+              {% if model.log_url == "N/A" and  model.commands_log_url != "N/A" %}
+         <li>    <a href="/job/delete?id={{ model.id }}" >     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>    Delete Job
+      </a>  <a target="_blank" href={{model.commands_log_url}} > <span class="glyphicon glyphicon-file" aria-hidden="true"> </span>Commands Logs</a></li>
+                        {% else %}
+
+<li>  <a href="/job/delete?id={{ model.id }}" >     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete Job
+</a>
+            {% if model.instance_id != "0"  and model.state == 'Pending'%}
+
+ <li>   <a href="/request/cancel?id={{ model.id }}" >  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Terminate Instance</a></li>
+
+    {% else %}
+<li> </li>
+             {% endif %}
+             {% endif %}
+                       {% endif %}
+             {% endif %}
+
+
+                  </ul>
+                            </div></div>
+
+<td> <a href="/status/update/id?id={{model.id}}"   class="btn btn-app">
+                <i class="fa fa-repeat"></i>
+    Update
+
+</a></td>
+</tr>
+
+    {% endfor %}
+
+    {% endif %}
+
+                  </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        </div>
+      </div>
+    </section>
+
+
+ {% endblock %}
+	</body>
+
+</html>
