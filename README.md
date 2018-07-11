@@ -171,7 +171,7 @@ Each job will be identified by :
 ![alt text](docs/job.png)
 
 
-## troubleshooting
+## Troubleshooting
 
 To troubleshoot and make sure that your request is fulfilled and your  spot instance is created :
 
@@ -179,7 +179,7 @@ Those are the steps you should do :
 
 1 -  Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/  <br />
 2 -  Choose Spot Requests. <br />
-3 -  You have to find smthg like that :
+3 -  You have to find something like this :
 
 
 ![alt text](docs/spot.png)
