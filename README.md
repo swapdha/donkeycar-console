@@ -72,8 +72,16 @@ The donkey car console won't enable you to use its features if you don't set up 
 
 ![alt text](docs/aws.png)
 
+#### Important : After you set up your credentials you have to grant some permissions so our backend server can work perfectly :
+
+- AmazonEC2FullAccess
+- AmazonS3FullAccess
+
+To grant permission you can have a look on https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html
 
 #### Note: if you don't have an amazon account you can visit this link https://aws.amazon.com/resources/create-account/ and create one.
+
+
 
 #### 2 : Set up your Github Repository in the settings page:
 You have to specify the Github repository you want to use to train your model  and choose the model extension.
@@ -161,6 +169,26 @@ Each job will be identified by :
 - **Update**: this button will help you update the state of the  job and check if the a model is successfully created or not.
 
 ![alt text](docs/job.png)
+
+
+## troubleshooting
+
+To troubleshoot and make sure that your request is fulfilled and your  spot instance is created :
+
+Those are the steps you should do :
+
+1 -  Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/  <br />
+2 -  Choose Spot Requests. <br />
+3 -  You have to find smthg like that :
+
+
+![alt text](docs/spot.png)
+
+4 - And you can check Instances and see your instance running.
+
+
+![alt text](docs/instance.png)
+
 
 
 

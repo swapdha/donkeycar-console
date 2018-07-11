@@ -53,7 +53,7 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import os
 import zipfile
-
+import uuid
 from django.http import HttpResponse
 import io
 from django import template
@@ -73,8 +73,10 @@ def credentials_check(f):
             result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
             global AWS_ACCESS_KEY_ID
             global AWS_SECRET_ACCESS_KEY
+            global bucket_name
             AWS_ACCESS_KEY_ID = result[0].aws_access_key_id
             AWS_SECRET_ACCESS_KEY = result[0].aws_secret_access_key
+            bucket_name = result[0].bucket_name
         else:
             return HttpResponseRedirect("/settings/")
         return f(request, *args, **kwargs)
@@ -435,6 +437,11 @@ def save_credentials(request):
     message = ""
     if request.method == "POST":
 
+
+
+        id = uuid.uuid4()
+        bucket_name = "donkeycar-console-"+ str(id)
+
         UPDATED_AWS_ACCESS_KEY_ID = request.POST.get('key1')
         UPDATED_AWS_SECRET_ACCESS_KEY = request.POST.get('key2')
 
@@ -447,11 +454,11 @@ def save_credentials(request):
                 response = sts.get_caller_identity()
 
                 try:
-                    client.create_bucket(Bucket=UPDATED_AWS_ACCESS_KEY_ID.lower())
+                    client.create_bucket(Bucket=bucket_name)
                     conn = S3Connection(aws_access_key_id=UPDATED_AWS_ACCESS_KEY_ID,
                                         aws_secret_access_key=UPDATED_AWS_SECRET_ACCESS_KEY)
 
-                    bucket = conn.get_bucket(UPDATED_AWS_ACCESS_KEY_ID.lower())
+                    bucket = conn.get_bucket(bucket_name)
                     k = bucket.new_key('models/')
                     k.set_contents_from_string('')
                     k = bucket.new_key('data/')
@@ -460,11 +467,11 @@ def save_credentials(request):
                     if count == 0:
                         credential = credentials(
                             aws_access_key_id=UPDATED_AWS_ACCESS_KEY_ID,
-                            aws_secret_access_key=UPDATED_AWS_SECRET_ACCESS_KEY)
+                            aws_secret_access_key=UPDATED_AWS_SECRET_ACCESS_KEY,
+                            bucket_name= bucket_name)
+
                         credential.save()
                         message = "Credentials have been updated !"
-
-
 
                     else:
                         credential = credentials.objects.latest('id')
@@ -526,9 +533,7 @@ def save_github_repo(request):
     if request.method == "POST":
         repo = request.POST.get('repo')
         extension = request.POST.get('extension')
-
         print(repo)
-
         result = os.system('git ls-remote  ' + repo)
         if result == 0:
             if repo != None:
@@ -591,11 +596,11 @@ def add_remark(request):
     job.Comments.add(remark)
     return HttpResponse('success')
 
-def verify_logs(state,id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
+def verify_logs(state,id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name):
 
             conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-            bucket = conn.get_bucket(AWS_ACCESS_KEY_ID.lower())
+            bucket = conn.get_bucket(bucket_name)
             s3 = boto3.resource('s3',aws_access_key_id=AWS_ACCESS_KEY_ID,
                                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
@@ -603,16 +608,16 @@ def verify_logs(state,id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
 
                 if key.name == 'job_'+ str(id) +'.log':
                     #url = "https://s3.console.aws.amazon.com/s3/object/"+AWS_ACCESS_KEY_ID.lower()+"/"+ key.name
-                    url_to_download= "https://s3.amazonaws.com/"+AWS_ACCESS_KEY_ID.lower()+"/"+ key.name
+                    url_to_download= "https://s3.amazonaws.com/"+bucket_name+"/"+ key.name
                     Jobs.objects.filter(id=id).update(log_url=url_to_download)
-                    object_acl = s3.ObjectAcl(AWS_ACCESS_KEY_ID.lower(), key.name)
+                    object_acl = s3.ObjectAcl(bucket_name, key.name)
                     response = object_acl.put(ACL='public-read')
 
 
                 if key.name == 'job_'+ str(id) +'_commands.log':
-                    url1_to_download= "https://s3.amazonaws.com/"+AWS_ACCESS_KEY_ID.lower()+"/"+ key.name
+                    url1_to_download= "https://s3.amazonaws.com/"+bucket_name+"/"+ key.name
                     Jobs.objects.filter(id=id).update(commands_log_url=url1_to_download)
-                    object_acl = s3.ObjectAcl(AWS_ACCESS_KEY_ID.lower(), key.name)
+                    object_acl = s3.ObjectAcl(bucket_name, key.name)
                     response1 = object_acl.put(ACL='public-read')
 
 
@@ -637,7 +642,7 @@ def update_status_by_id(request):
         now = datetime.now(pytz.utc)
         id = request.GET.get('id', '')
         job = Jobs.objects.get(id=id)
-        verify_logs(job.state,job.id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+        verify_logs(job.state,job.id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name)
         if job.request_id != "0":
                 if now > job.date + timedelta(minutes=job.request_time):
                     try:
@@ -666,7 +671,7 @@ def update_status_by_id(request):
             else:
                 conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                                     aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-                bucket = conn.get_bucket(AWS_ACCESS_KEY_ID.lower())
+                bucket = conn.get_bucket(bucket_name)
                 for key in bucket.list('models'):
                     name = key.name.split('/')
                     print(key)
@@ -702,11 +707,6 @@ def update_status_by_id(request):
             Jobs.objects.filter(id=job.id).update(state='Failed')
             Jobs.objects.filter(id=job.id).update(duration='0')
 
-
-
-
-
-
         return HttpResponseRedirect('/jobs/')
 
 
@@ -736,7 +736,7 @@ def copy_local(request):
            model_name = 'job_' + str(id) + extension
        else:
            model_name = 'job_' + str(id)
-       s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY}
+       s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY ,'bucket_name': bucket_name}
 
        url = "https://dconsole.proactivesystem.com.hk/downloadFromS3"
        headers = {'Content-type': 'application/json'}
@@ -751,7 +751,7 @@ def copy_local(request):
        if( os.path.exists(path[0]+model_name) == True ):
          print("it exists")
        else:
-           s3.Object(AWS_ACCESS_KEY_ID.lower(),key_path.split('/', 1)[1] + '/' + model_name).download_file(path[0] + model_name)
+           s3.Object(bucket_name,key_path.split('/', 1)[1] + '/' + model_name).download_file(path[0] + model_name)
 
        return HttpResponseRedirect('/jobs/')
 
@@ -777,7 +777,7 @@ def autopilot(request):
         else:
             model_name = 'job_' + str(id)
         job_name = 'job_' + str(id)
-        s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY}
+        s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,'bucket_name': bucket_name}
 
         url = "https://dconsole.proactivesystem.com.hk/downloadFromS3"
         headers = {'Content-type': 'application/json'}
@@ -789,10 +789,10 @@ def autopilot(request):
         key_path = o.path.split('/', 1)[1]
         s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
                             aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-        if (os.path.exists(path[0] + model_name) == True):
+        if (os.path.exists(path[0] + job_name) == True):
             print("it exists")
         else:
-            s3.Object(AWS_ACCESS_KEY_ID.lower(), key_path.split('/', 1)[1] + '/' + model_name).download_file(
+            s3.Object(bucket_name, key_path.split('/', 1)[1] + '/' + model_name).download_file(
                 path[0] + job_name)
 
         try:
@@ -806,7 +806,6 @@ def autopilot(request):
         autopilot_proc = subprocess.Popen(["python", "/home/pi/"+updated_local_directory_name+"/manage.py", "drive", "--model", "/home/pi/"+updated_local_directory_name+"/models/" + job_name])
         return HttpResponseRedirect('/jobs/')
 
-        #os.system('python ~/d2/manage.py drive --model ~/d2/models/' + model_name)
 def get_car_status_autopilot(request):
     try:
         poll = autopilot_proc.poll()
@@ -864,7 +863,7 @@ def create_job(request):
         conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                             aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-        bucket = conn.get_bucket(AWS_ACCESS_KEY_ID.lower())
+        bucket = conn.get_bucket(bucket_name)
         message = ""
         job_number = Jobs.objects.filter().count()
         if request.method == "POST":
@@ -940,7 +939,7 @@ def create_job(request):
 
                     current_path = os.popen('pwd').read()
                     current_path = current_path.split()
-                    s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY}
+                    s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,'bucket_name': bucket_name}
 
                     url = "https://dconsole.proactivesystem.com.hk/uploadToS3"
                     headers = {'Content-type': 'application/json'}
@@ -953,7 +952,7 @@ def create_job(request):
                     s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
                                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
                     tarfile_name = 'job_' + str(job.id) + '.tar.gz'
-                    s3.meta.client.upload_file(os.path.join(current_path[0], tarfile_name), AWS_ACCESS_KEY_ID.lower(),
+                    s3.meta.client.upload_file(os.path.join(current_path[0], tarfile_name), bucket_name,
                                                path.split('/', 1)[1] + '/' + tarfile_name)
 
                     if instance_type != '':
@@ -963,7 +962,7 @@ def create_job(request):
                         data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,
                                 'github_repo': github_repo.name, 'termination_time': termination_time,
                                 'model_name': model_name, 'availability_zone': availability_zone[0], 'job_name':job_name,
-                                'instance_type': instance_type, 'request_time': request_time}
+                                'instance_type': instance_type, 'request_time': request_time,'bucket_name': bucket_name}
                         url = "https://dconsole.proactivesystem.com.hk/launchEC2"
                         headers = {'Content-type': 'application/json'}
                         response = requests.post(url, data=json.dumps(data), headers=headers)

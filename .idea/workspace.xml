@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e52cd1c0-5cc6-4633-9b26-dfbac383b49e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/templates/console/credentials.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/credentials.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,29 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/home.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1560">
-              <caret line="104" column="113" selection-start-line="104" selection-start-column="113" selection-end-line="104" selection-end-column="113" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="358" lean-forward="true" selection-start-line="358" selection-end-line="358" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="206" column="88" selection-start-line="206" selection-start-column="88" selection-end-line="206" selection-end-column="88" />
+            <state relative-caret-position="214">
+              <caret line="644" column="88" selection-start-line="644" selection-start-column="88" selection-end-line="644" selection-end-column="88" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -43,11 +29,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/donkeycar-console/settings.py">
+      <file leaf-file-name="spot.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/spot.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file leaf-file-name="credentials.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1575">
-              <caret line="105" column="22" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
+            <state relative-caret-position="450">
+              <caret line="56" column="57" selection-start-line="56" selection-start-column="57" selection-end-line="56" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="56">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="335">
+              <caret line="189" column="25" selection-start-line="189" selection-start-column="25" selection-end-line="189" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -97,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data_folders.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/data_folders.html">
+      <file leaf-file-name="controller.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="589">
+              <caret line="115" column="65" selection-start-line="115" selection-start-column="65" selection-end-line="115" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -110,17 +113,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>active</find>
-      <find>training_controller</find>
-      <find>local_dire</find>
-      <find>updated_local</find>
-      <find>updated_local_direc</find>
-      <find>github</find>
-      <find>github.objects</find>
-      <find>d2</find>
-      <find>github.objects.latest('id'</find>
-      <find>update_</find>
-      <find>local</find>
       <find>go</find>
       <find>autopi</find>
       <find>88</find>
@@ -140,6 +132,17 @@
       <find>https://</find>
       <find>donkeycar_cons</find>
       <find>donkeycar_console</find>
+      <find>pro</find>
+      <find>AWS_key</find>
+      <find>aws_access_Key_id</find>
+      <find>bucket_name</find>
+      <find>AWS_access_key_id.lo</find>
+      <find>AWS_access_key_id.lower</find>
+      <find>ec2</find>
+      <find>messg</find>
+      <find>proac</find>
+      <find>UU</find>
+      <find>verif</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -153,9 +156,7 @@
         <option value="$PROJECT_DIR$/donkeycar_console/urls.py" />
         <option value="$PROJECT_DIR$/console/apps.py" />
         <option value="$PROJECT_DIR$/console/admin.py" />
-        <option value="$PROJECT_DIR$/console/models.py" />
         <option value="$PROJECT_DIR$/console/templates/console/github.html" />
-        <option value="$PROJECT_DIR$/console/templates/console/credentials.html" />
         <option value="$PROJECT_DIR$/console/templates/console/controller.html" />
         <option value="$PROJECT_DIR$/console/templates/console/jobs.html" />
         <option value="$PROJECT_DIR$/console/templates/console/local_directory.html" />
@@ -168,15 +169,17 @@
         <option value="$PROJECT_DIR$/donkeycar-console/wsgi.py" />
         <option value="$PROJECT_DIR$/manage.py" />
         <option value="$PROJECT_DIR$/donkeycar-console.sh" />
-        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/console/templates/console/credentials.html" />
+        <option value="$PROJECT_DIR$/console/models.py" />
         <option value="$PROJECT_DIR$/console/views.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="135" />
-    <option name="y" value="33" />
-    <option name="width" value="1684" />
+    <option name="x" value="37" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
     <option name="height" value="817" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -221,6 +224,11 @@
               <item name="console" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="console" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="donkeycar-console" type="b2602c69:ProjectViewProjectNode" />
+              <item name="donkeycar-console" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="donkeycar-console" type="b2602c69:ProjectViewProjectNode" />
@@ -270,7 +278,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="31" width="1440" height="817" extended-state="6" />
+    <frame x="37" y="23" width="1440" height="817" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26527777" />
@@ -306,13 +314,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/console/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="33" column="75" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/src/jobs.py" />
     <entry file="file://$PROJECT_DIR$/console/templates/console/topup.html" />
     <entry file="file://$PROJECT_DIR$/console/src/drive.py" />
@@ -467,30 +468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="123" column="61" selection-start-line="123" selection-start-column="61" selection-end-line="123" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="115" column="65" selection-start-line="115" selection-start-column="65" selection-end-line="115" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -548,23 +525,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="206" column="88" selection-start-line="206" selection-start-column="88" selection-end-line="206" selection-end-column="88" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/donkeycar-console/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1575">
@@ -593,10 +553,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="115" column="65" selection-start-line="115" selection-start-column="65" selection-end-line="115" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="56" column="57" selection-start-line="56" selection-start-column="57" selection-end-line="56" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="644" column="88" selection-start-line="644" selection-start-column="88" selection-end-line="644" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/spot.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="335">
+          <caret line="189" column="25" selection-start-line="189" selection-start-column="25" selection-end-line="189" selection-end-column="25" />
         </state>
       </provider>
     </entry>

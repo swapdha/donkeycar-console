@@ -31,6 +31,7 @@ class local_directory(models.Model):
 class credentials(models.Model):
     aws_access_key_id = models.CharField(max_length=256)
     aws_secret_access_key = models.CharField(max_length=256)
+    bucket_name =  models.CharField(max_length=256,default="N/A")
 
 class controller(models.Model):
     training = models.CharField(max_length=10,blank=True)
