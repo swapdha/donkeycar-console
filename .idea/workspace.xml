@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e52cd1c0-5cc6-4633-9b26-dfbac383b49e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/controller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/credentials.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/credentials.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/github.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/github.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/local_directory.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/local_directory.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,8 +25,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/console/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="104" column="43" selection-start-line="104" selection-start-column="43" selection-end-line="104" selection-end-column="43" />
+            <state relative-caret-position="544">
+              <caret line="165" column="12" lean-forward="true" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="12" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -47,8 +42,8 @@
       <file leaf-file-name="local_directory.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="89" selection-start-line="89" selection-end-line="90" selection-end-column="143" />
+            <state relative-caret-position="205">
+              <caret line="109" column="34" selection-start-line="109" selection-start-column="34" selection-end-line="109" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -120,7 +115,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Train</find>
       <find>start</find>
       <find>https://</find>
       <find>donkeycar_cons</find>
@@ -142,7 +136,7 @@
       <find>updated_local_dire</find>
       <find>local_direct</find>
       <find>updated_loca</find>
-      <find />
+      <find>updated_local_directory_name = Local_directory.name</find>
       <find>updated_local</find>
       <find>home/pi</find>
       <find>check</find>
@@ -150,6 +144,7 @@
       <find>d2</find>
       <find>deplo</find>
       <find>updated_local_direc</find>
+      <find>save_loc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -285,8 +280,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="36" y="23" width="1776" height="817" extended-state="0" />
-    <editor active="true" />
+    <frame x="6" y="23" width="1776" height="817" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1418919" />
       <window_info anchor="bottom" id="TODO" order="10" />
@@ -570,13 +564,6 @@
     <entry file="file://$PROJECT_DIR$/console/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="89" selection-start-line="89" selection-end-line="90" selection-end-column="143" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/github.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -611,10 +598,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="109" column="34" selection-start-line="109" selection-start-column="34" selection-end-line="109" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/console/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="104" column="43" selection-start-line="104" selection-start-column="43" selection-end-line="104" selection-end-column="43" />
+        <state relative-caret-position="544">
+          <caret line="165" column="12" lean-forward="true" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="12" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>

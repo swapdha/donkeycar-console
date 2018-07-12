@@ -140,7 +140,6 @@ def kill_proc(request):
     return HttpResponseRedirect('/jobs/')
 
 
-@credentials_check
 def save_local_directory(request):
         message = ""
         updated_repo = ""
