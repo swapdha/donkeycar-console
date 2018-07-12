@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e52cd1c0-5cc6-4633-9b26-dfbac383b49e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/templates/console/controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/controller.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/templates/console/credentials.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/credentials.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/templates/console/github.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/github.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/templates/console/local_directory.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/local_directory.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +30,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/console/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="880" column="30" selection-start-line="880" selection-start-column="30" selection-end-line="880" selection-end-column="30" />
+            <state relative-caret-position="133">
+              <caret line="104" column="43" selection-start-line="104" selection-start-column="43" selection-end-line="104" selection-end-column="43" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -35,16 +39,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spot.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/spot.png">
-          <provider selected="true" editor-type-id="images" />
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/__init__.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="local_directory.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="223">
+              <caret line="89" selection-start-line="89" selection-end-line="90" selection-end-column="143" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="credentials.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="56" column="57" selection-start-line="56" selection-start-column="57" selection-end-line="56" selection-end-column="57" />
+            <state relative-caret-position="238">
+              <caret line="90" column="143" selection-start-line="90" selection-start-column="143" selection-end-line="90" selection-end-column="143" />
             </state>
           </provider>
         </entry>
@@ -52,8 +65,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
+            <state relative-caret-position="405">
+              <caret line="27" column="21" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="21" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -61,20 +74,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/manage.py">
+      <file leaf-file-name="github.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/templates/console/github.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="5" column="63" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="donkeycar-console.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/donkeycar-console.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="238">
+              <caret line="89" column="143" selection-start-line="89" selection-start-column="143" selection-end-line="89" selection-end-column="143" />
+              <folding>
+                <element signature="n#style#0;n#section#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#section#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#section#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#section#1;n#div#3;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,17 +92,17 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="181" column="41" selection-start-line="181" selection-start-column="41" selection-end-line="181" selection-end-column="41" />
+            <state relative-caret-position="540">
+              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/base.html">
+      <file leaf-file-name="data_folders.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/templates/console/data_folders.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+            <state relative-caret-position="208">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -100,8 +110,8 @@
       <file leaf-file-name="controller.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="589">
-              <caret line="115" column="65" selection-start-line="115" selection-start-column="65" selection-end-line="115" selection-end-column="65" />
+            <state relative-caret-position="238">
+              <caret line="97" column="143" selection-start-line="97" selection-start-column="143" selection-end-line="97" selection-end-column="143" />
             </state>
           </provider>
         </entry>
@@ -110,12 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>noImages</find>
-      <find>add_re</find>
-      <find>add</find>
-      <find>create</find>
-      <find>create_job</find>
-      <find>display</find>
       <find>Train</find>
       <find>start</find>
       <find>https://</find>
@@ -138,8 +142,14 @@
       <find>updated_local_dire</find>
       <find>local_direct</find>
       <find>updated_loca</find>
+      <find />
+      <find>updated_local</find>
+      <find>home/pi</find>
+      <find>check</find>
+      <find>check(</find>
+      <find>d2</find>
+      <find>deplo</find>
       <find>updated_local_direc</find>
-      <find>updated_local_directory_name = Local_directory.name</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -153,10 +163,7 @@
         <option value="$PROJECT_DIR$/donkeycar_console/urls.py" />
         <option value="$PROJECT_DIR$/console/apps.py" />
         <option value="$PROJECT_DIR$/console/admin.py" />
-        <option value="$PROJECT_DIR$/console/templates/console/github.html" />
-        <option value="$PROJECT_DIR$/console/templates/console/controller.html" />
         <option value="$PROJECT_DIR$/console/templates/console/jobs.html" />
-        <option value="$PROJECT_DIR$/console/templates/console/local_directory.html" />
         <option value="$PROJECT_DIR$/console/templates/console/index.html" />
         <option value="$PROJECT_DIR$/console/urls.py" />
         <option value="$PROJECT_DIR$/donkeycar_console/settings.py" />
@@ -166,17 +173,20 @@
         <option value="$PROJECT_DIR$/donkeycar-console/wsgi.py" />
         <option value="$PROJECT_DIR$/manage.py" />
         <option value="$PROJECT_DIR$/donkeycar-console.sh" />
-        <option value="$PROJECT_DIR$/console/templates/console/credentials.html" />
         <option value="$PROJECT_DIR$/console/models.py" />
+        <option value="$PROJECT_DIR$/console/templates/console/local_directory.html" />
+        <option value="$PROJECT_DIR$/console/templates/console/github.html" />
+        <option value="$PROJECT_DIR$/console/templates/console/credentials.html" />
+        <option value="$PROJECT_DIR$/console/templates/console/controller.html" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/console/views.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="30" />
-    <option name="y" value="28" />
-    <option name="width" value="1695" />
+    <option name="x" value="6" />
+    <option name="y" value="23" />
+    <option name="width" value="1776" />
     <option name="height" value="817" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -275,36 +285,36 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="30" y="28" width="1695" height="817" extended-state="0" />
+    <frame x="36" y="23" width="1776" height="817" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22536874" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1418919" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="17" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="4" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26543942" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.0" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="15" />
+      <window_info anchor="bottom" id="Python Console" order="16" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -465,23 +475,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/create_job.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/github.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4245">
-          <caret line="283" column="20" selection-start-line="283" selection-start-column="20" selection-end-line="283" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -501,13 +498,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/donkeycar_console/settings.py" />
-    <entry file="file://$PROJECT_DIR$/console/templates/console/data_folders.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/jobs.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1065">
@@ -550,39 +540,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="115" column="65" selection-start-line="115" selection-start-column="65" selection-end-line="115" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="56" column="57" selection-start-line="56" selection-start-column="57" selection-end-line="56" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/spot.png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="181" column="41" selection-start-line="181" selection-start-column="41" selection-end-line="181" selection-end-column="41" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/home.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -591,10 +550,71 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/data_folders.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="21" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="89" selection-start-line="89" selection-end-line="90" selection-end-column="143" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/github.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="89" column="143" selection-start-line="89" selection-start-column="143" selection-end-line="89" selection-end-column="143" />
+          <folding>
+            <element signature="n#style#0;n#section#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#section#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#section#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#section#1;n#div#3;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="90" column="143" selection-start-line="90" selection-start-column="143" selection-end-line="90" selection-end-column="143" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="97" column="143" selection-start-line="97" selection-start-column="143" selection-end-line="97" selection-end-column="143" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/console/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="880" column="30" selection-start-line="880" selection-start-column="30" selection-end-line="880" selection-end-column="30" />
+        <state relative-caret-position="133">
+          <caret line="104" column="43" selection-start-line="104" selection-start-column="43" selection-end-line="104" selection-end-column="43" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>

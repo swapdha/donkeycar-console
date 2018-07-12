@@ -68,8 +68,10 @@ def credentials_check(f):
     def wrap(request, *args, **kwargs):
         count = credentials.objects.filter().count()
         count1 = github.objects.filter().count()
+        count2 = local_directory.objects.filter().count()
 
-        if (count != 0 and count1 != 0):
+
+        if (count != 0 and count1 != 0 and count2 != 0):
             result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
             global AWS_ACCESS_KEY_ID
             global AWS_SECRET_ACCESS_KEY
@@ -98,9 +100,9 @@ def drive(request):
 
        try:
             Local_directory = local_directory.objects.latest('id')
-            updated_local_directory_name = Local_directory.name + '/'
+            updated_local_directory_name = Local_directory.name
        except:
-            updated_local_directory_name = ''
+           updated_local_directory_name = ''
        print(request.POST)
        global proc
        print("hey")
@@ -114,9 +116,9 @@ def drive(request):
 
            if controller_mode != '':
 
-              proc = subprocess.Popen(["python", "/home/pi/"+updated_local_directory_name+"manage.py", "drive",controller_mode])
+              proc = subprocess.Popen(["python", updated_local_directory_name+"/manage.py", "drive",controller_mode])
            else:
-              proc = subprocess.Popen(["python", "/home/pi/"+updated_local_directory_name+"manage.py", "drive"])
+              proc = subprocess.Popen(["python", updated_local_directory_name+"/manage.py", "drive"])
 
        # proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive"])
 
@@ -190,17 +192,17 @@ def save_local_directory(request):
 def display_data_folders(request):
         try:
             Local_directory = local_directory.objects.latest('id')
-            updated_local_directory_name = Local_directory.name + '/'
+            updated_local_directory_name = Local_directory.name
         except:
             updated_local_directory_name = ''
 
-        list_data = os.popen('ls ~/'+updated_local_directory_name+'data/').read()
+        list_data = os.popen('ls '+updated_local_directory_name+'/data/').read()
         directories = list_data.split()
         dataFolders = []
         print(directories)
         for dir in directories:
 
-            direcPath = os.popen('echo ~/'+updated_local_directory_name+'data/' + dir).read()
+            direcPath = os.popen('echo '+updated_local_directory_name+'/data/' + dir).read()
             direcPath = direcPath.split()
 
             if os.path.isdir(direcPath[0]):
@@ -210,15 +212,15 @@ def display_data_folders(request):
                         print("it exists")
                     else:
                         with open(direcPath[0] + '/donkeycar-console.json', 'w') as outfile:
-                            noImages = os.popen('ls -l ~/'+updated_local_directory_name+'data/' + dir + ' | grep .jpg | wc -l').read()
+                            noImages = os.popen('ls -l '+updated_local_directory_name+'/data/' + dir + ' | grep .jpg | wc -l').read()
                             noImages.strip()
                             print(noImages)
                             noImages = int(noImages)
 
                             year = os.popen('date +"%Y"').read()
-                            time = os.popen("ls -ldc ~/"+updated_local_directory_name+"data/" + dir + " | awk  '{print $8}'").read()
-                            month = os.popen("ls -ldc ~/"+updated_local_directory_name+"data/" + dir + " | awk  '{print $6}'").read()
-                            day = os.popen("ls -ldc ~/"+updated_local_directory_name+"data/" + dir + " | awk  '{print $7}'").read()
+                            time = os.popen("ls -ldc  "+updated_local_directory_name+"/data/" + dir + " | awk  '{print $8}'").read()
+                            month = os.popen("ls -ldc "+updated_local_directory_name+"/data/" + dir + " | awk  '{print $6}'").read()
+                            day = os.popen("ls -ldc "+updated_local_directory_name+"/data/" + dir + " | awk  '{print $7}'").read()
                             date = year + " " + month + " " + day + " " + time
                             d = datetime.strptime(date, '%Y\n %b\n %d\n %H:%M\n')
                             d = d.strftime('%Y-%m-%d %H:%M')
@@ -239,13 +241,13 @@ def display_data_folders(request):
             print(item)
             dir = item["name"]
 
-            direcPath = os.popen('echo ~/' + updated_local_directory_name + 'data/' + dir).read()
+            direcPath = os.popen('echo ' + updated_local_directory_name + '/data/' + dir).read()
             direcPath = direcPath.split()
             with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
                 data = json.load(outfile)
                 print(data)
             tmp = data["no"]
-            noImages = os.popen('ls -l ~/' + updated_local_directory_name + 'data/' + dir + ' | grep .jpg | wc -l').read()
+            noImages = os.popen('ls -l ' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
             data["no"] = noImages
             with open(direcPath[0] + '/donkeycar-console.json', 'w') as jsonFile:
                 json.dump(data, jsonFile)
@@ -260,13 +262,13 @@ def display_data_folders(request):
 def getfiles(request):
         try:
             Local_directory = local_directory.objects.latest('id')
-            updated_local_directory_name = Local_directory.name + '/'
+            updated_local_directory_name = Local_directory.name
         except:
             updated_local_directory_name = ''
         result = request.GET.get('dir', '')
         print(result)
         zip_io = io.BytesIO()
-        direcPath = os.popen('echo ~/'+updated_local_directory_name+'data/').read()
+        direcPath = os.popen('echo '+updated_local_directory_name+'/data/').read()
         direcPath = direcPath.split()
         with zipfile.ZipFile(zip_io, mode='w', compression=zipfile.ZIP_DEFLATED) as backup_zip:
             for f in os.listdir(direcPath[0] + result):
@@ -281,10 +283,10 @@ def delete_data(request):
     name= request.GET.get('name', '')
     try:
         Local_directory = local_directory.objects.latest('id')
-        updated_local_directory_name = Local_directory.name +'/'
+        updated_local_directory_name = Local_directory.name
     except:
         updated_local_directory_name = ''
-    os.system('sudo rm -r ~/'+updated_local_directory_name+'data/'+name)
+    os.system('sudo rm -r '+updated_local_directory_name+'/data/'+name)
     return HttpResponseRedirect('/data/')
 
 def delete_data_folder_comment(request):
@@ -293,12 +295,12 @@ def delete_data_folder_comment(request):
     name= request.GET.get('name', '')
     try:
         Local_directory = local_directory.objects.latest('id')
-        updated_local_directory_name = Local_directory.name +'/'
+        updated_local_directory_name = Local_directory.name
     except:
         updated_local_directory_name = ''
 
     if (id and name):
-        direcPath = os.popen('echo ~/'+updated_local_directory_name+'data/' + name).read()
+        direcPath = os.popen('echo '+updated_local_directory_name+'/data/' + name).read()
         direcPath = direcPath.split()
         with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
             data = json.load(outfile)
@@ -316,10 +318,10 @@ def add_data_folder_comment(request):
     data_comment = request.POST['var']
     try:
         Local_directory = local_directory.objects.latest('id')
-        updated_local_directory_name = Local_directory.name +'/'
+        updated_local_directory_name = Local_directory.name
     except:
         updated_local_directory_name = ''
-    direcPath = os.popen('echo ~/'+updated_local_directory_name+'data/' + data_name).read()
+    direcPath = os.popen('echo '+updated_local_directory_name+'/data/' + data_name).read()
     direcPath = direcPath.split()
     with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
             data = json.load(outfile)
@@ -722,10 +724,10 @@ def copy_local(request):
        id = request.GET.get('id', '')
        try:
            Local_directory = local_directory.objects.latest('id')
-           updated_local_directory_name = Local_directory.name + '/'
+           updated_local_directory_name = Local_directory.name
        except:
            updated_local_directory_name = ''
-       path = os.popen('echo ~/'+updated_local_directory_name+'models/').read()
+       path = os.popen('echo '+updated_local_directory_name+'/models/').read()
        path = path.split()
        try:
            updated_repo = github.objects.latest('id')
@@ -761,11 +763,11 @@ def autopilot(request):
         id = request.GET.get('id', '')
         try:
             Local_directory = local_directory.objects.latest('id')
-            updated_local_directory_name = Local_directory.name + '/'
+            updated_local_directory_name = Local_directory.name
         except:
             updated_local_directory_name = ''
 
-        path = os.popen('echo ~/'+updated_local_directory_name+'models/').read()
+        path = os.popen('echo '+updated_local_directory_name+'/models/').read()
         path = path.split()
         try:
             updated_repo = github.objects.latest('id')
@@ -803,7 +805,7 @@ def autopilot(request):
 
         global autopilot_proc
 
-        autopilot_proc = subprocess.Popen(["python", "/home/pi/"+updated_local_directory_name+"manage.py", "drive", "--model", "/home/pi/"+updated_local_directory_name+"models/" + job_name])
+        autopilot_proc = subprocess.Popen(["python", updated_local_directory_name+"/manage.py", "drive", "--model", updated_local_directory_name+"/models/" + job_name])
         return HttpResponseRedirect('/jobs/')
 
 def get_car_status_autopilot(request):
@@ -855,7 +857,7 @@ def home(request):
 def create_job(request):
         try:
             Local_directory = local_directory.objects.latest('id')
-            updated_local_directory_name = Local_directory.name + '/'
+            updated_local_directory_name = Local_directory.name
         except:
             updated_local_directory_name = ''
         choices = ['t2.micro', 't2.medium', 'g2.2xlarge', 'g2.8xlarge', 'p2.xlarge', 'p3.2xlarge', 'p3.8xlarge']
@@ -909,7 +911,7 @@ def create_job(request):
                     instance_max=max_time)
                 job.save()
                 selected_data = ""
-                dataPath = os.popen('echo ~/'+updated_local_directory_name+'data/').read()
+                dataPath = os.popen('echo '+updated_local_directory_name+'/data/').read()
                 dataPath = dataPath.split()
 
                 for dir in checked_data:
@@ -982,13 +984,13 @@ def create_job(request):
                     os.system('rm -r  job_' + str(job.id) + '.tar.gz ')
                     return HttpResponseRedirect('/jobs/success/')
 
-        list_data = os.popen('ls ~/'+updated_local_directory_name+'data/').read()
+        list_data = os.popen('ls '+updated_local_directory_name+'/data/').read()
         directories = list_data.split()
         dataFolders = []
         print(directories)
         for dir in directories:
 
-            direcPath = os.popen('echo ~/'+updated_local_directory_name+'data/' + dir).read()
+            direcPath = os.popen('echo '+updated_local_directory_name+'/data/' + dir).read()
             direcPath = direcPath.split()
 
             if os.path.isdir(direcPath[0]):
@@ -998,7 +1000,7 @@ def create_job(request):
                         data = json.load(outfile)
                         print(data)
                     tmp = data["no"]
-                    noImages = os.popen('ls -l ~/' + updated_local_directory_name + 'data/' + dir + ' | grep .jpg | wc -l').read()
+                    noImages = os.popen('ls -l ' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
                     data["no"] = noImages
 
                     with open(direcPath[0] + '/donkeycar-console.json', 'w') as jsonFile:
@@ -1006,13 +1008,13 @@ def create_job(request):
 
                 else:
                     with open(direcPath[0] + '/donkeycar-console.json', 'w') as outfile:
-                        noImages = os.popen('ls -l ~/'+updated_local_directory_name+'data/' + dir + ' | grep .jpg | wc -l').read()
+                        noImages = os.popen('ls -l '+updated_local_directory_name+'/data/' + dir + ' | grep .jpg | wc -l').read()
                         noImages.strip()
                         noImages = int(noImages)
                         year = os.popen('date +"%Y"').read()
-                        time = os.popen("ls -ldc ~/"+updated_local_directory_name+"data/" + dir + " | awk  '{print $8}'").read()
-                        month = os.popen("ls -ldc ~/"+updated_local_directory_name+"data/" + dir + " | awk  '{print $6}'").read()
-                        day = os.popen("ls -ldc ~/"+updated_local_directory_name+"data/" + dir + " | awk  '{print $7}'").read()
+                        time = os.popen("ls -ldc "+updated_local_directory_name+"/data/" + dir + " | awk  '{print $8}'").read()
+                        month = os.popen("ls -ldc "+updated_local_directory_name+"/data/" + dir + " | awk  '{print $6}'").read()
+                        day = os.popen("ls -ldc "+updated_local_directory_name+"/data/" + dir + " | awk  '{print $7}'").read()
                         date = year + " " + month + " " + day + " " + time
                         d = datetime.strptime(date, '%Y\n %b\n %d\n %H:%M\n')
                         d = d.strftime('%Y-%m-%d %H:%M')
@@ -1044,23 +1046,23 @@ def create_job(request):
 def delete_empty_folders(request):
     try:
         Local_directory = local_directory.objects.latest('id')
-        updated_local_directory_name = Local_directory.name + '/'
+        updated_local_directory_name = Local_directory.name
     except:
         updated_local_directory_name = ''
 
-    list_data = os.popen('ls ~/' + updated_local_directory_name + 'data/').read()
+    list_data = os.popen('ls ' + updated_local_directory_name + '/data/').read()
 
     directories = list_data.split()
     print(directories)
     for dir in directories:
 
-        direcPath = os.popen('echo ~/' + updated_local_directory_name + 'data/' + dir).read()
+        direcPath = os.popen('echo ' + updated_local_directory_name + '/data/' + dir).read()
         direcPath = direcPath.split()
 
         if os.path.isdir(direcPath[0]):
 
                     noImages = os.popen(
-                        'ls -l ~/' + updated_local_directory_name + 'data/' + dir + ' | grep .jpg | wc -l').read()
+                        'ls -l ' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
                     noImages.strip()
                     print(noImages)
                     noImages = int(noImages)

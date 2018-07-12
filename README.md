@@ -55,6 +55,12 @@ Thanks to the Donkey Car Console, you  will have a user interface deployed on yo
 ![alt text](docs/view.png)
 
 
+#### Note: If you are using the image that supports v.2.5.1 of donkeycar and  before running as a service, you have to :
+
+     pi@d2:~$ sudo nano  donkeycar-console/donkeycar-console.sh
+
+ - change   "source $HOME/.virtualenvs/dk/bin/activate"  with  "source $HOME/env/bin/activate"
+
 
 
 #### Note:
