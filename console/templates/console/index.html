@@ -68,7 +68,44 @@ label{
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
+          <!-- Tasks: style can be found in dropdown.less -->
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
+
+                  <img src=""  id="user_image" class="user-image" >
+
+         <span class="hidden-xs" id="id_user">    </span>
+
+
+
+
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+
+              <li class="user-header">
+
+                <img src="" id="user_image1"class="img-circle" >
+
+              </li>
+              <!-- Menu Body -->
+
+              <!-- Menu Footer-->
+              <li class="user-footer">
+
+                <div class="pull-right">
+                  <a  class="btn btn-default btn-flat" href="/logout/">Sign out</a>
+                </div>
+
+
+              </li>
+
+
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
           <li>
             <a>   </a>
           </li>
@@ -189,12 +226,30 @@ for (i = 0; i < res.length - 1; i++) {
             $('#abc').append('<option >'+res[i].concat("/H")+'</option> ' )
 }
 
-
         });
     });
 });
 </script>
 
+<script>
+$(document).ready(function() {
+
+
+        $.get('/get_user_info/', function(data){
+
+var res = data.split("&&");
+
+console.log(res)
+              name = res[0]
+              profile_url = res[1]
+              document.getElementById("id_user").innerHTML = name
+              document.getElementById("user_image").src = profile_url
+              document.getElementById("user_image1").src = profile_url
+
+
+        });
+    })
+</script>
 
    <script>
 
@@ -341,7 +396,7 @@ function setNavigation() {
       'autoWidth'   : false
     })
   })
-</script><!-- AdminLTE for demo purposes -->
+</script>
 <script>
 $(function () {
 var header =document.getElementById("state")

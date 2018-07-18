@@ -36,6 +36,12 @@ class credentials(models.Model):
 class controller(models.Model):
     training = models.CharField(max_length=10,blank=True)
 
+class facebook_user(models.Model):
+    JWT_token = models.CharField(max_length=256)
+    facebook_id = models.CharField(max_length=256)
+    name = models.CharField(max_length=256)
+    profile_picture_url = models.CharField(max_length=256)
+
 
 
 class github(models.Model):

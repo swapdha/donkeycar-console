@@ -1,7 +1,4 @@
 from django.shortcuts import render
-
-# Django
-from django.shortcuts import render
 from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
@@ -9,16 +6,9 @@ from django.http import JsonResponse
 import simplejson as json
 import requests
 from itertools import islice
-
-from .models import remarks
-from .models import credentials
-from .models import github
-from .models import controller
-import subprocess
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
-from django.conf import settings
 from os import listdir
 from os.path import isfile, join, isdir
 from .models import Jobs
@@ -27,10 +17,8 @@ import time
 import json
 from django.http import JsonResponse
 from django.shortcuts import redirect
-
 import requests
 from urllib.parse import urlparse
-from flask import Flask, render_template, request, redirect
 from datetime import datetime
 import os
 import os.path
@@ -38,17 +26,11 @@ from django.utils.dateparse import parse_datetime
 from datetime import timedelta
 from datetime import datetime
 from django.urls import reverse
-
 import pytz
 import boto3
 import base64
 from operator import itemgetter
-import glob
-from .models import remarks
-from .models import credentials
-from .models import github
 import subprocess
-
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import os
@@ -57,7 +39,6 @@ import uuid
 from django.http import HttpResponse
 import io
 from django import template
-
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from console.models import *
@@ -69,8 +50,6 @@ def credentials_check(f):
         count = credentials.objects.filter().count()
         count1 = github.objects.filter().count()
         count2 = local_directory.objects.filter().count()
-
-
         if (count != 0 and count1 != 0 and count2 != 0):
             result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
             global AWS_ACCESS_KEY_ID
@@ -82,32 +61,102 @@ def credentials_check(f):
         else:
             return HttpResponseRedirect("/settings/")
         return f(request, *args, **kwargs)
+    wrap.__doc__ = f.__doc__
+    wrap.__name__ = f.__name__
+    return wrap
+
+def myuser_login_required(f):
+        def wrap(request, *args, **kwargs):
+            # this check the session if userid key exist, if not it will redirect to login page
+            if 'userid' not in request.session.keys():
+                return HttpResponseRedirect("/")
+            return f(request, *args, **kwargs)
+
+        wrap.__doc__ = f.__doc__
+        wrap.__name__ = f.__name__
+        return wrap
+
+def myuser_index(f):
+    def wrap(request, *args, **kwargs):
+        # this check the session if userid key exist, if not it will redirect to login page
+        if 'userid'  in request.session.keys():
+            return HttpResponseRedirect("/home/")
+        return f(request, *args, **kwargs)
 
     wrap.__doc__ = f.__doc__
     wrap.__name__ = f.__name__
     return wrap
 
 
+@myuser_index
 def index(request):
 
-    return HttpResponseRedirect('/home/')
+    template = loader.get_template('console/login.html')
+    return HttpResponse(template.render({}, request))
 
 
 
 
+def login(request,accessToken):
+
+    data = {'accessToken': accessToken}
+    url = "https://dconsole.proactivesystem.com.hk/dev/login"
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(url, data=json.dumps(data), headers=headers)
+    try:
+        body = json.loads(response.json()['body'])
+        jwt_token = body['Token']
+        user_id = body['UserID']
+        name = body['name']
+        profile_image = body['profileImage']
+        count = facebook_user.objects.filter(facebook_id=user_id).count()
+        if count == 0 :
+            new_user = facebook_user(JWT_token=jwt_token,facebook_id=user_id,name=name,profile_picture_url=profile_image)
+            new_user.save()
+        else:
+            facebook_user.objects.filter(facebook_id=user_id).update(JWT_token=jwt_token)
+
+        request.session['userid'] = user_id
+        request.session['name'] = name
+        request.session['profile_picture'] = profile_image
+
+        return HttpResponse('True')
+    except:
+        return HttpResponse('False')
+
+
+
+
+def logout(request):
+        try:
+            del request.session['userid']
+        except:
+            pass
+        return HttpResponseRedirect('/')
+
+
+def get_user_info(request):
+
+    if 'userid' in request.session:
+        name = request.session['name']
+        profile_picture_url = request.session['profile_picture']
+        response = name+"&&"+profile_picture_url
+    else:
+        response=""
+    return HttpResponse(response)
+
+
+
+@myuser_login_required
 @credentials_check
 def drive(request):
-
        try:
             Local_directory = local_directory.objects.latest('id')
             updated_local_directory_name = Local_directory.name
        except:
            updated_local_directory_name = ''
-       print(request.POST)
        global proc
-       print("hey")
        if 'start' in request.POST:
-           print("start")
            try:
                exist_controller = controller.objects.latest('id')
                controller_mode = exist_controller.training
@@ -120,14 +169,11 @@ def drive(request):
            else:
               proc = subprocess.Popen(["python", updated_local_directory_name+"/manage.py", "drive"])
 
-       # proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive"])
-
        elif 'stop' in request.POST:
            try:
              proc.kill()
            except:
-               print("no proc")
-
+             print("No proc is running")
 
        template = loader.get_template('console/home.html')
        return HttpResponse(template.render({}, request))
@@ -136,13 +182,12 @@ def kill_proc(request):
     try:
        autopilot_proc.kill()
     except:
-        print("no autopilot ptoc")
+       print("no autopilot proc")
     return HttpResponseRedirect('/jobs/')
 
-
+@myuser_login_required
 def save_local_directory(request):
         message = ""
-        updated_repo = ""
         try:
             credential = credentials.objects.latest('id')
             aws_key_id = credential.aws_access_key_id
@@ -152,13 +197,11 @@ def save_local_directory(request):
             local_directory_name = request.POST.get('local_directory')
 
             if local_directory_name != None:
-
                 try:
                     exist_local_directory= local_directory.objects.latest('id')
                     local_directory.objects.filter(id=exist_local_directory.id).update(name=local_directory_name)
 
                     message = "Local Directory  has been updated"
-
                 except:
                     new_local_directory = local_directory(name=local_directory_name)
                     new_local_directory.save()
@@ -187,8 +230,10 @@ def save_local_directory(request):
                                              'AWS_KEY': aws_key_id}, request))
 
 
+@myuser_login_required
 @credentials_check
 def display_data_folders(request):
+
         try:
             Local_directory = local_directory.objects.latest('id')
             updated_local_directory_name = Local_directory.name
@@ -198,9 +243,7 @@ def display_data_folders(request):
         list_data = os.popen('ls '+updated_local_directory_name+'/data/').read()
         directories = list_data.split()
         dataFolders = []
-        print(directories)
         for dir in directories:
-
             direcPath = os.popen('echo '+updated_local_directory_name+'/data/' + dir).read()
             direcPath = direcPath.split()
 
@@ -239,12 +282,10 @@ def display_data_folders(request):
         for item in iterator:
             print(item)
             dir = item["name"]
-
             direcPath = os.popen('echo ' + updated_local_directory_name + '/data/' + dir).read()
             direcPath = direcPath.split()
             with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
                 data = json.load(outfile)
-                print(data)
             tmp = data["no"]
             noImages = os.popen('ls -l ' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
             data["no"] = noImages
@@ -255,15 +296,18 @@ def display_data_folders(request):
         context = {
             'result': dataFolders,
         }
-
         return render(request, 'console/data_folders.html', context)
 
+
+@myuser_login_required
+@credentials_check
 def getfiles(request):
         try:
             Local_directory = local_directory.objects.latest('id')
             updated_local_directory_name = Local_directory.name
         except:
             updated_local_directory_name = ''
+
         result = request.GET.get('dir', '')
         print(result)
         zip_io = io.BytesIO()
@@ -272,12 +316,14 @@ def getfiles(request):
         with zipfile.ZipFile(zip_io, mode='w', compression=zipfile.ZIP_DEFLATED) as backup_zip:
             for f in os.listdir(direcPath[0] + result):
                 backup_zip.write(direcPath[0] + result + '/' + f)
-
         response = HttpResponse(zip_io.getvalue(), content_type='application/x-zip-compressed')
         response['Content-Disposition'] = 'attachment; filename=%s' % result + ".zip"
         response['Content-Length'] = zip_io.tell()
         return response
 
+
+@myuser_login_required
+@credentials_check
 def delete_data(request):
     name= request.GET.get('name', '')
     try:
@@ -288,6 +334,9 @@ def delete_data(request):
     os.system('sudo rm -r '+updated_local_directory_name+'/data/'+name)
     return HttpResponseRedirect('/data/')
 
+
+@myuser_login_required
+@credentials_check
 def delete_data_folder_comment(request):
 
     comment= request.GET.get('comment', '')
@@ -309,8 +358,9 @@ def delete_data_folder_comment(request):
 
     return HttpResponseRedirect('/data/')
 
+@myuser_login_required
+@credentials_check
 def add_data_folder_comment(request):
-
 
     data_name = request.POST['name']
     print(data_name)
@@ -330,9 +380,9 @@ def add_data_folder_comment(request):
             (data['remarks']).append(data_comment)
             json.dump(data, writefile)
     return HttpResponse('success')
+
 def sizify(value):
 
-    # value = ing(value)
     if value < 512000:
         value = value / 1024.0
         ext = 'kb'
@@ -343,6 +393,9 @@ def sizify(value):
         value = value / 1073741824.0
         ext = 'gb'
     return '%s %s' % (str(round(value, 2)), ext)
+
+
+@myuser_login_required
 @credentials_check
 def list_jobs(request):
        jobs = Jobs.objects.order_by('-date')[:30]
@@ -350,8 +403,6 @@ def list_jobs(request):
            import re
            list = re.findall("'(.*?)'", job.tubs)
            job.tubs = list
-
-
            if job.size != 'N/A':
               job.size=sizify(int(job.size))
        context = {
@@ -362,10 +413,9 @@ def list_jobs(request):
        return HttpResponse(template.render(context, request))
 
 
-
+@myuser_login_required
 def save_controller_settings(request):
     message = ""
-    updated_repo = ""
     try:
         credential = credentials.objects.latest('id')
         aws_key_id = credential.aws_access_key_id
@@ -380,14 +430,12 @@ def save_controller_settings(request):
                 controller.objects.filter(id=exist_controller.id).update(training=training_controller)
 
                 message = "Controller settings have been updated"
-            except Exception as e:
+            except:
 
                 new_controller = controller(
                     training=training_controller)
                 new_controller.save()
                 message = "Controller settings have been updated"
-
-
 
 
     try:
@@ -413,6 +461,7 @@ def save_controller_settings(request):
     return HttpResponse(template.render({'local_directory': updated_local_directory_name,'controller_message': message,'training_controller':updated_training_controller,'updated_extension':updated_extension,'updated_repo':updated_repo_name,'AWS_KEY':aws_key_id}, request))
 
 
+@myuser_login_required
 @credentials_check
 def list_jobs_success(request):
 
@@ -425,7 +474,7 @@ def list_jobs_success(request):
               job.size=sizify(int(job.size))
        context = {
          'models': jobs,
-        'success': "New Job Added !"
+         'success': "New Job Added !"
 
        }
        template = loader.get_template('console/jobs.html')
@@ -433,16 +482,12 @@ def list_jobs_success(request):
 
 
 
-
+@myuser_login_required
 def save_credentials(request):
     message = ""
     if request.method == "POST":
-
-
-
         id = uuid.uuid4()
         bucket_name = "donkeycar-console-"+ str(id)
-
         UPDATED_AWS_ACCESS_KEY_ID = request.POST.get('key1')
         UPDATED_AWS_SECRET_ACCESS_KEY = request.POST.get('key2')
 
@@ -493,7 +538,6 @@ def save_credentials(request):
         aws_key_id = credential.aws_access_key_id
     except:
         aws_key_id = ''
-        updated_repo =""
     try:
         updated_name = github.objects.latest('id')
         updated_repo_name = updated_name.name
@@ -514,7 +558,6 @@ def save_credentials(request):
         updated_local_directory_name = ''
 
 
-
     template = loader.get_template('console/credentials.html')
     return HttpResponse(template.render({'message': message,'local_directory': updated_local_directory_name,'training_controller':updated_training_controller,'AWS_KEY': aws_key_id,'updated_repo':updated_repo_name,'updated_extension':updated_extension}, request))
 
@@ -522,10 +565,9 @@ def save_credentials(request):
 
 
 
-
+@myuser_login_required
 def save_github_repo(request):
     message = ""
-    updated_repo = ""
     try:
         credential = credentials.objects.latest('id')
         aws_key_id = credential.aws_access_key_id
@@ -574,11 +616,15 @@ def save_github_repo(request):
     template = loader.get_template('console/github.html')
     return HttpResponse(template.render({'status': message,'local_directory': updated_local_directory_name,'training_controller':updated_training_controller,'updated_extension':updated_extension,'updated_repo':updated_repo_name,'AWS_KEY':aws_key_id}, request))
 
-
+@myuser_login_required
+@credentials_check
 def delete_remark(request):
-    id= request.GET.get('id', '')
+    id = request.GET.get('id', '')
     remarks.objects.filter(id=id).delete()
     return HttpResponseRedirect('/jobs/')
+
+@myuser_login_required
+@credentials_check
 def delete_job(request):
     id= request.GET.get('id', '')
     Jobs.objects.filter(id=id).delete()
@@ -597,7 +643,7 @@ def add_remark(request):
     job.Comments.add(remark)
     return HttpResponse('success')
 
-def verify_logs(state,id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name):
+def verify_logs(id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name):
 
             conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -608,20 +654,20 @@ def verify_logs(state,id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name):
             for key in bucket.list():
 
                 if key.name == 'job_'+ str(id) +'.log':
-                    #url = "https://s3.console.aws.amazon.com/s3/object/"+AWS_ACCESS_KEY_ID.lower()+"/"+ key.name
                     url_to_download= "https://s3.amazonaws.com/"+bucket_name+"/"+ key.name
                     Jobs.objects.filter(id=id).update(log_url=url_to_download)
                     object_acl = s3.ObjectAcl(bucket_name, key.name)
-                    response = object_acl.put(ACL='public-read')
+                    object_acl.put(ACL='public-read')
 
 
                 if key.name == 'job_'+ str(id) +'_commands.log':
                     url1_to_download= "https://s3.amazonaws.com/"+bucket_name+"/"+ key.name
                     Jobs.objects.filter(id=id).update(commands_log_url=url1_to_download)
                     object_acl = s3.ObjectAcl(bucket_name, key.name)
-                    response1 = object_acl.put(ACL='public-read')
+                    object_acl.put(ACL='public-read')
 
-
+@myuser_login_required
+@credentials_check
 def cancel_request(request):
        client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
                               aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name='us-east-1')
@@ -636,6 +682,7 @@ def cancel_request(request):
        Jobs.objects.filter(id=id).update(duration='0')
        return HttpResponseRedirect('/jobs/')
 
+@myuser_login_required
 @credentials_check
 def update_status_by_id(request):
         client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -643,6 +690,17 @@ def update_status_by_id(request):
         now = datetime.now(pytz.utc)
         id = request.GET.get('id', '')
         job = Jobs.objects.get(id=id)
+
+        try:
+            updated_repo = github.objects.latest('id')
+            extension = updated_repo.extension
+        except:
+            extension = ''
+
+        if extension != '':
+            model_name = 'job_' + str(job.id) + extension
+        else:
+            model_name = 'job_' + str(job.id)
         verify_logs(job.state,job.id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name)
         if job.request_id != "0":
                 if now > job.date + timedelta(minutes=job.request_time):
@@ -651,7 +709,6 @@ def update_status_by_id(request):
                             SpotInstanceRequestIds=[
                                 job.request_id
                             ]
-
                         )
                         value = response['SpotInstanceRequests'][0]['Status']['Code']
                         Jobs.objects.filter(id=job.id).update(request_state=value)
@@ -659,16 +716,12 @@ def update_status_by_id(request):
                         Jobs.objects.filter(id=job.id).update(instance_id=instance_id)
                     except Exception as e:
                         print(e)
-
-
         now = datetime.now(pytz.utc)
         print("now",now)
         if job.state == 'Pending':
             if job.request_state == 'schedule-expired':
                 Jobs.objects.filter(id=job.id).update(state='Failed')
                 Jobs.objects.filter(id=job.id).update(duration='0')
-
-
             else:
                 conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                                     aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -679,17 +732,6 @@ def update_status_by_id(request):
                     date = key.last_modified
                     print(date)
                     print("job.date" + str(job.date))
-                    try:
-                        updated_repo = github.objects.latest('id')
-                        extension= updated_repo.extension
-                    except:
-                        extension = ''
-
-                    if extension != '' :
-                       model_name = 'job_' + str(job.id)+ extension
-                    else:
-                       model_name = 'job_' + str(job.id)
-
                     if name[1] == model_name:
                         Jobs.objects.filter(id=job.id).update(state='Finished')
                         Jobs.objects.filter(id=job.id).update(size=key.size)
@@ -703,11 +745,23 @@ def update_status_by_id(request):
                         Jobs.objects.filter(id=job.id).update(duration='0')
 
         job = Jobs.objects.get(id=id)
-
         if job.request_state == 'instance-terminated-by-user' and job.state == 'Pending':
             Jobs.objects.filter(id=job.id).update(state='Failed')
             Jobs.objects.filter(id=job.id).update(duration='0')
 
+        s3_data = {
+            "model_name": model_name,
+            "facebook_id": request.session['userid'],
+            'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,
+            'bucket_name': bucket_name
+        }
+
+        try:
+            url = "https://dconsole.proactivesystem.com.hk/dev/job/update"
+            headers = {'Content-type': 'application/json'}
+            requests.post(url, data=json.dumps(s3_data), headers=headers)
+        except:
+            print("No update")
         return HttpResponseRedirect('/jobs/')
 
 
@@ -718,6 +772,8 @@ def convert_timedelta(duration):
     minutes = (seconds % 3600) // 60
     seconds = (seconds % 60)
     return hours, minutes, seconds
+
+
 @credentials_check
 def copy_local(request):
        id = request.GET.get('id', '')
@@ -726,6 +782,7 @@ def copy_local(request):
            updated_local_directory_name = Local_directory.name
        except:
            updated_local_directory_name = ''
+
        path = os.popen('echo '+updated_local_directory_name+'/models/').read()
        path = path.split()
        try:
@@ -733,22 +790,28 @@ def copy_local(request):
            extension = updated_repo.extension
        except:
            extension = ''
+
        if extension != '':
            model_name = 'job_' + str(id) + extension
        else:
            model_name = 'job_' + str(id)
+
        s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY ,'bucket_name': bucket_name}
-
-       url = "https://dconsole.proactivesystem.com.hk/downloadFromS3"
-       headers = {'Content-type': 'application/json'}
+       try:
+           user = facebook_user.objects.get(facebook_id=request.session['userid'])
+           print(user.JWT_token)
+       except facebook_user.DoesNotExist:
+           print("doesn't exist")
+           user = None
+       url = "https://dconsole.proactivesystem.com.hk/dev/S3/download"
+       headers = {'Authorization': user.JWT_token,'Content-type': 'application/json'}
        response = requests.post(url, data=json.dumps(s3_data), headers=headers)
-
-       print(response.json())
        response_url = (response.json())['url']
        o = urlparse(response_url)
        key_path = o.path.split('/', 1)[1]
        s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
                            aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+
        if( os.path.exists(path[0]+model_name) == True ):
          print("it exists")
        else:
@@ -757,6 +820,7 @@ def copy_local(request):
        return HttpResponseRedirect('/jobs/')
 
 
+@myuser_login_required
 @credentials_check
 def autopilot(request):
         id = request.GET.get('id', '')
@@ -779,12 +843,15 @@ def autopilot(request):
             model_name = 'job_' + str(id)
         job_name = 'job_' + str(id)
         s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,'bucket_name': bucket_name}
-
-        url = "https://dconsole.proactivesystem.com.hk/downloadFromS3"
-        headers = {'Content-type': 'application/json'}
+        try:
+            user = facebook_user.objects.get(facebook_id=request.session['userid'])
+            print(user.JWT_token)
+        except facebook_user.DoesNotExist:
+            print("doesn't exist")
+            user = None
+        url = "https://dconsole.proactivesystem.com.hk/dev/S3/download"
+        headers = {'Authorization': user.JWT_token,'Content-type': 'application/json'}
         response = requests.post(url, data=json.dumps(s3_data), headers=headers)
-
-        print(response.json())
         response_url = (response.json())['url']
         o = urlparse(response_url)
         key_path = o.path.split('/', 1)[1]
@@ -796,14 +863,7 @@ def autopilot(request):
             s3.Object(bucket_name, key_path.split('/', 1)[1] + '/' + model_name).download_file(
                 path[0] + job_name)
 
-        try:
-           exist_controller = controller.objects.latest('id')
-           controller_mode = exist_controller.autopilot
-        except:
-           controller_mode=''
-
         global autopilot_proc
-
         autopilot_proc = subprocess.Popen(["python", updated_local_directory_name+"/manage.py", "drive", "--model", updated_local_directory_name+"/models/" + job_name])
         return HttpResponseRedirect('/jobs/')
 
@@ -811,47 +871,33 @@ def get_car_status_autopilot(request):
     try:
         poll = autopilot_proc.poll()
         if poll == None:
-            responseCode = 200
-            responseMessage = 'Your process is up and running!'
             response = 'Autopilot'
-
         else:
-            responseMessage = 'Your process is down!'
             response = ''
     except:
-        responseMessage = 'Your process is down!'
-        print(responseMessage)
         response = ''
 
     return HttpResponse(response)
-
 
 def get_car_status_training(request):
     try:
         poll = proc.poll()
         if poll == None:
-
-            responseCode = 200
-            responseMessage = 'Your process is up and running!'
             response = 'Training'
             return HttpResponse(response)
         else:
-            responseCode = 604
-            responseMessage = 'Your process is down!'
             response = ''
-
-            print(responseMessage)
     except:
-
-        responseMessage = 'Your process is down!'
         response = ''
-
     return HttpResponse(response)
+
+@myuser_login_required
 @credentials_check
 def home(request):
        template = loader.get_template('console/home.html')
        return HttpResponse(template.render({}, request))
 
+@myuser_login_required
 @credentials_check
 def create_job(request):
         try:
@@ -863,8 +909,6 @@ def create_job(request):
         errorMessage = ""
         conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                             aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-
-        bucket = conn.get_bucket(bucket_name)
         message = ""
         job_number = Jobs.objects.filter().count()
         if request.method == "POST":
@@ -874,11 +918,6 @@ def create_job(request):
             max_time = request.POST.get('max_time')
             request_time = request.POST.get('request_time')
 
-            print(availability_zone)
-            print(instance_type)
-            print(max_time)
-            print(request_time)
-
             if max_time == '':
                 max_time = 15
             if request_time == '':
@@ -887,9 +926,7 @@ def create_job(request):
                availability_zone = availability_zone.split()
                price = availability_zone[1]
             except:
-                print("no avai")
-
-            print(checked_data)
+                print("no availability")
             if len(checked_data) == 0 or int(max_time) >= 60:
                 if len(checked_data) == 0 and int(max_time) >= 60:
                     message = " No selected items and EC2 Termination Time maximum must be 60 minutes "
@@ -897,8 +934,6 @@ def create_job(request):
                     message = " No selected items"
                 elif int(max_time) >= 60:
                     message = "EC2 Termination Time maximum must be 60 minutes "
-
-
             else:
                 job = Jobs(
                     tubs=checked_data,
@@ -940,14 +975,22 @@ def create_job(request):
 
                     current_path = os.popen('pwd').read()
                     current_path = current_path.split()
-                    s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,'bucket_name': bucket_name}
-
-                    url = "https://dconsole.proactivesystem.com.hk/uploadToS3"
-                    headers = {'Content-type': 'application/json'}
+                    s3_data = {'facebook_ID' : request.session['userid'],'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,'bucket_name': bucket_name}
+                    try:
+                        user = facebook_user.objects.get(facebook_id=request.session['userid'])
+                        print(user.JWT_token)
+                    except facebook_user.DoesNotExist:
+                        print("doesn't exist")
+                        user = None
+                    url = "https://dconsole.proactivesystem.com.hk/dev/S3/upload"
+                    headers = {'Authorization': user.JWT_token,'Content-type': 'application/json'}
                     response = requests.post(url, data=json.dumps(s3_data), headers=headers)
 
                     print(response.json())
-                    response_url = (response.json())['url']
+                    try:
+                        response_url = (response.json())['url']
+                    except:
+                        print("url not found ")
                     o = urlparse(response_url)
                     path = o.path.split('/', 1)[1]
                     s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -960,26 +1003,54 @@ def create_job(request):
                         termination_time = (Jobs.objects.get(id=job.id)).instance_max
                         github_repo = github.objects.latest('id')
 
-                        data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,
+                        data = {'facebook_ID': request.session['userid'],'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,
                                 'github_repo': github_repo.name, 'termination_time': termination_time,
                                 'model_name': model_name, 'availability_zone': availability_zone[0], 'job_name':job_name,
                                 'instance_type': instance_type, 'request_time': request_time,'bucket_name': bucket_name}
-                        url = "https://dconsole.proactivesystem.com.hk/launchEC2"
-                        headers = {'Content-type': 'application/json'}
+
+                        try:
+                            user = facebook_user.objects.get(facebook_id=request.session['userid'])
+                            print(user.JWT_token)
+                        except facebook_user.DoesNotExist:
+                            print("doesn't exist")
+                            user = None
+                        url = "https://dconsole.proactivesystem.com.hk/dev/EC2/launch"
+                        headers = {'Authorization': user.JWT_token,'Content-type': 'application/json'}
                         response = requests.post(url, data=json.dumps(data), headers=headers)
                         print(response.json())
-                        Jobs.objects.filter(id=job.id).update(request_id=(response.json())['request_id'])
-                        # response =launch_ec2_instance(job.id,job_name,instance_type,availability_zone[0],termination_time,request_time)
+
+                        try:
+                            request_id = json.loads(response.json()['body'])['request_id']
+                            Jobs.objects.filter(id=job.id).update(request_id=request_id)
+                        except Exception as e :
+                            print(e)
+                            job.delete()
+
                         Jobs.objects.filter(id=job.id).update(date=datetime.now())
                         if "InvalidParameterValue" in response:
                             errorMessage = "This type of instance is invalid"
+                            print(errorMessage)
                             job.delete()
                         elif "UnauthorizedOperation" in response:
                             errorMessage = "Check your IAM Permissions"
+                            print(errorMessage)
                             job.delete()
                     else:
                         errorMessage = " Enter an instance type "
+                        print(errorMessage)
                         job.delete()
+
+                    try:
+                        msg = response.json()['message']
+                        if msg == "Endpoint request timed out":
+                            try:
+                                job.delete()
+                            except:
+                                print("Deleted")
+                            return HttpResponseRedirect('/jobs/timeout/')
+                    except Exception as  e:
+                        print(e)
+
                     os.system('rm -r  job_' + str(job.id) + '.tar.gz ')
                     return HttpResponseRedirect('/jobs/success/')
 
@@ -1041,7 +1112,25 @@ def create_job(request):
         return render(request, 'console/create_job.html',context)
 
 
+@myuser_login_required
+@credentials_check
+def list_jobs_timeout(request):
+       jobs = Jobs.objects.order_by('-date')[:30]
+       for job in jobs:
+           import re
+           list = re.findall("'(.*?)'", job.tubs)
+           job.tubs = list
+           if job.size != 'N/A':
+              job.size=sizify(int(job.size))
+       context = {
+         'models': jobs,
+        'timeout': "No Job was created ! Please Try again"
 
+       }
+       template = loader.get_template('console/jobs.html')
+       return HttpResponse(template.render(context, request))
+@myuser_login_required
+@credentials_check
 def delete_empty_folders(request):
     try:
         Local_directory = local_directory.objects.latest('id')
@@ -1085,22 +1174,17 @@ def check_availability_zone(instance_type):
 
     )
 
-
     List= response['SpotPriceHistory']
     List.sort(key=itemgetter('SpotPrice'))
-
     models = { az['AvailabilityZone'] for az in List}
     listAZ = list(models)
-
     newlist=[]
     for l in listAZ:
         listA = [x for x in List if x['AvailabilityZone']== l]
         newlist.append(l + " " + listA[0]['SpotPrice']  + "/H")
-
-
     return newlist
 
-def display_availability(request,name):
+def display_availability(name):
         response = check_availability_zone(name)
         return HttpResponse(response)
 
