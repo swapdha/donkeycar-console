@@ -52,7 +52,7 @@ Thanks to the Donkey Car Console, you  will have a user interface deployed on yo
       
 - open the console with "hostname:8000" (e.g  d2.local:8000). You will see something like this :
 
-![alt text](docs/view.png)
+![alt text](docs/login.png)
 
 
 #### Note: If you are using the image that supports v.2.5.1 of donkeycar and  before running as a service, you have to :
@@ -68,7 +68,35 @@ if you change the hostname of your car : <br />
 1. Change the hostname in /etc/hostname and /etc/hosts files  <br />
 2. You must add the new hostname to ALLOWED_HOSTS in "donkeycar-console/donkeycar-console/settings.py"
 
+## Authentification
 
+This application has a specific authentication mechanism and this  will explain how the user can login to it.
+To be authorized to use the lambda functions in the Serverless Project. The user has to have a session and a valid JWT token.
+
+Step1. Creating a Session
+Step2. Validating the JWT token
+
+
+### 1. Creating a session
+Without a session the browser will display a facebook login button. 
+When a user press the facebook login button :
+1.1 . A request with an access token is sent to the Django backend and call the login API in the Serverless project.
+1.2 . The API invokes a lambda function to validate the access token using Facebook API.
+1.3. If the access token is valid, the user will be unauthorized to login. 
+1.4. If it's valid, the login lambda function will generate a JWT token and send it back to the  Django backend.
+1.5 . The JWT token is stored it in the database.
+1.6 . A session is created and now the user is authorized to login to the application.
+
+After creating a session, the user will be redirected to the home page of the DonkeyCar console application but he will not be able to invoke the the rest of the lambda functions until the JWT token is validated and that will be explained in the second step.
+### 2. Validating the JWT token
+Now the user is redirected to home page but if he want to enquire about the number of credits he have. His JWT token must be verified.
+2.1. The Django backend will call any serverless function with passing the stored JWT token as a parameter.
+2.2. An authorize lambda function will be invoked to verify if the JWT token is valid or not.
+2.3.  If the JWT token is valid, the second step is verified and the lambda function will send the result to the user.
+2.4. If it's not valid, the user will be unauthorized to call the lambda function from the Serverless project.
+
+
+After those two steps are verified, the user will have the ability to use the DonkeyCar console and the functions in the Serverless project.
 
 ## How to set up the donkey car console settings ?
 

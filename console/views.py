@@ -701,7 +701,7 @@ def update_status_by_id(request):
             model_name = 'job_' + str(job.id) + extension
         else:
             model_name = 'job_' + str(job.id)
-        verify_logs(job.state,job.id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name)
+        verify_logs(job.id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name)
         if job.request_id != "0":
                 if now > job.date + timedelta(minutes=job.request_time):
                     try:
@@ -1184,7 +1184,7 @@ def check_availability_zone(instance_type):
         newlist.append(l + " " + listA[0]['SpotPrice']  + "/H")
     return newlist
 
-def display_availability(name):
+def display_availability(request,name):
         response = check_availability_zone(name)
         return HttpResponse(response)
 
