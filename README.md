@@ -87,7 +87,7 @@ When a user press the facebook login button :<br />
 1.5 . The JWT token is stored it in the database.<br />
 1.6 . A session is created and now the user is authorized to login to the application.<br />
 
-After creating a session, the user will be redirected to the home page of the DonkeyCar console application but he will not be able to invoke the the rest of the lambda functions until the JWT token is validated and that will be explained in the second step.<br />
+After creating a session, the user will be redirected to the home page of the DonkeyCar console application but he will not be able to invoke the rest of the lambda functions until the JWT token is validated and that will be explained in the second step.<br />
 ### 2. Validating the JWT token <br />
 Now the user is redirected to home page but if he want to enquire about the number of credits he have. His JWT token must be verified.<br />
 2.1. The Django backend will call any serverless function with passing the stored JWT token as a parameter.<br />
@@ -96,7 +96,7 @@ Now the user is redirected to home page but if he want to enquire about the numb
 2.4. If it's not valid, the user will be unauthorized to call the lambda function from the Serverless project.<br />
 
 
-After those two steps are verified, the user will have the ability to use the DonkeyCar console and the functions in the Serverless project.<br /> 
+After those two steps are verified, the user will have the ability to use the DonkeyCar console and the functions in the Serverless project.<br />
 
 ## How to set up the donkey car console settings ?
 
