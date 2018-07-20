@@ -38,93 +38,24 @@
         Facebook</a>
     </div>
 
+</form>
+
 <script>
 
 var fblogin = function() {
-    FB.login(function(response) {
-        if (response) {
-            if (response.authResponse) {
-            console.log(response)
-var xhr = new XMLHttpRequest();
 
-
-xhr.onreadystatechange = function() {
-    if (xhr.readyState == XMLHttpRequest.DONE) {
-        if ( xhr.responseText === 'True' ) {
-
-        window.location = '/home/'
-        }
-        else{
-
-        console.log("Unauth")
-        }
+    var xhr1 = new XMLHttpRequest();
+xhr1.onreadystatechange = function() {
+    if (xhr1.readyState == XMLHttpRequest.DONE) {
+    window.location = xhr1.responseText
     }
 }
-accessToken = response.authResponse.accessToken
-xhr.open('GET', '/login/'+accessToken+'/', true);
-xhr.send(null);
-            } else {
+path = window.location.hostname
+xhr1.open('GET', '/facebook_login/'+ path +'/', true);
+xhr1.send(null);
 
-            }
-        }},{scope:'public_profile,email'}); //whatever perms your app needs
-};
-
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-var xhr = new XMLHttpRequest();
-
-
-xhr.onreadystatechange = function() {
-    if (xhr.readyState == XMLHttpRequest.DONE) {
-        if ( xhr.responseText === 'True' ) {
-
-        window.location = '/home/'
-        }
-        else{
-
-        console.log("Unauth")
-        }
-    }
 }
-accessToken = response.authResponse.accessToken
-xhr.open('GET', '/login/'+accessToken+'/', true);
-xhr.send(null);
-    } else {
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    }
-  }
 
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '517921325231955',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v3.0'
-    });
-
-  };
-
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
 </script>
 

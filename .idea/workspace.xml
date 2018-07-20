@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e52cd1c0-5cc6-4633-9b26-dfbac383b49e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/templates/console/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,32 +18,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/home.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="524">
-              <caret line="104" column="113" selection-start-line="104" selection-start-column="113" selection-end-line="104" selection-end-column="113" />
-            </state>
-          </provider>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/donkeycar-console/urls.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="1184" column="18" lean-forward="true" selection-start-line="1184" selection-start-column="18" selection-end-line="1184" selection-end-column="18" />
+            <state relative-caret-position="613">
+              <caret line="155" column="27" lean-forward="true" selection-start-line="155" selection-start-column="27" selection-end-line="155" selection-end-column="27" />
               <folding>
-                <element signature="e#1#36#0" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jobs.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/jobs.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2739">
-              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
             </state>
           </provider>
         </entry>
@@ -55,32 +47,47 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="395" column="14" selection-start-line="395" selection-start-column="12" selection-end-line="395" selection-end-column="14" />
+            <state relative-caret-position="465">
+              <caret line="297" column="32" lean-forward="true" selection-start-line="297" selection-start-column="32" selection-end-line="297" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="github.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/github.html">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2469">
-              <caret line="89" column="143" selection-start-line="89" selection-start-column="143" selection-end-line="89" selection-end-column="143" />
+            <state relative-caret-position="210">
+              <caret line="14" column="94" selection-start-line="14" selection-start-column="94" selection-end-line="14" selection-end-column="94" />
               <folding>
-                <element signature="n#style#0;n#section#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#section#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#section#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#section#1;n#div#3;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/console/templates/console/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="328">
+              <caret line="51" column="1" lean-forward="true" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db.sqlite3" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db.sqlite3">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="661">
+              <caret line="73" column="20" lean-forward="true" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create_job.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/templates/console/create_job.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="508">
+              <caret line="281" selection-start-line="281" selection-end-line="281" />
             </state>
           </provider>
         </entry>
@@ -94,20 +101,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="local_directory.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2184">
-              <caret line="109" column="34" selection-start-line="109" selection-start-column="34" selection-end-line="109" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="89" column="142" selection-start-line="89" selection-start-column="142" selection-end-line="89" selection-end-column="142" />
+            <state relative-caret-position="230">
+              <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -116,20 +114,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>request</find>
-      <find>request_id</find>
-      <find>list_jo</find>
-      <find>create_jo</find>
-      <find>create</find>
-      <find>create_j</find>
-      <find>j</find>
-      <find>list_jobs(</find>
-      <find>list_jobs_</find>
-      <find>timeout</find>
-      <find>list_jobs</find>
-      <find>jobs</find>
-      <find>proa</find>
-      <find>timedel</find>
       <find>job.req</find>
       <find>parse_datetime</find>
       <find>create_job</find>
@@ -141,11 +125,25 @@
       <find>lask</find>
       <find>updated_repo</find>
       <find>key</find>
-      <find>id</find>
       <find>exis</find>
       <find>secret</find>
-      <find>access</find>
       <find>verify</find>
+      <find>invoke the</find>
+      <find>launc</find>
+      <find>login(</find>
+      <find>login</find>
+      <find>Red</find>
+      <find>id</find>
+      <find>facebook_login</find>
+      <find>xhr1</find>
+      <find>xhr</find>
+      <find>test</find>
+      <find>facebook_logi</find>
+      <find>request.get</find>
+      <find>requests.</find>
+      <find>authe</find>
+      <find>urllib</find>
+      <find>access</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,22 +164,22 @@
         <option value="$PROJECT_DIR$/console/models.py" />
         <option value="$PROJECT_DIR$/console/admin.py" />
         <option value="$PROJECT_DIR$/console/templates/console/jobs.html" />
-        <option value="$PROJECT_DIR$/console/urls.py" />
         <option value="$PROJECT_DIR$/console/templates/console/base.html" />
         <option value="$PROJECT_DIR$/console/templates/console/controller.html" />
         <option value="$PROJECT_DIR$/console/templates/console/create_job.html" />
         <option value="$PROJECT_DIR$/console/templates/console/credentials.html" />
         <option value="$PROJECT_DIR$/console/templates/console/data_folders.html" />
         <option value="$PROJECT_DIR$/console/templates/console/index.html" />
-        <option value="$PROJECT_DIR$/console/templates/console/login.html" />
         <option value="$PROJECT_DIR$/donkeycar-console.sh" />
         <option value="$PROJECT_DIR$/console/views.py" />
+        <option value="$PROJECT_DIR$/console/templates/console/login.html" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/console/urls.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-283" />
+    <option name="x" value="84" />
     <option name="y" value="23" />
     <option name="width" value="2571" />
     <option name="height" value="817" />
@@ -282,7 +280,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-283" y="23" width="2571" height="817" extended-state="0" />
+    <frame x="84" y="23" width="2571" height="817" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14858031" />
@@ -319,7 +317,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/console/src/job_creation.py" />
     <entry file="file://$PROJECT_DIR$/console/src/data_folders.py" />
     <entry file="file://$PROJECT_DIR$/console/migrations/0001_initial.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -347,7 +344,7 @@
         <state relative-caret-position="420">
           <caret line="88" column="81" selection-start-line="88" selection-start-column="81" selection-end-line="88" selection-end-column="81" />
           <folding>
-            <element signature="e#1#36#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -495,19 +492,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/donkeycar-console/urls.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/migrations/0004_facebook_user.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -532,13 +516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="516">
           <caret line="293" column="36" selection-start-line="293" selection-start-column="36" selection-end-line="293" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/create_job.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="281" selection-start-line="281" selection-end-line="281" />
         </state>
       </provider>
     </entry>
@@ -590,13 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="395" column="14" selection-start-line="395" selection-start-column="12" selection-end-line="395" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/donkeycar-console.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -611,27 +581,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/login.html">
+    <entry file="file://$PROJECT_DIR$/donkeycar-console/urls.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+        <state relative-caret-position="465">
+          <caret line="297" column="32" lean-forward="true" selection-start-line="297" selection-start-column="32" selection-end-line="297" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/views.py">
+    <entry file="file://$PROJECT_DIR$/console/templates/console/create_job.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="508">
-          <caret line="1184" column="18" lean-forward="true" selection-start-line="1184" selection-start-column="18" selection-end-line="1184" selection-end-column="18" />
-          <folding>
-            <element signature="e#1#36#0" expanded="true" />
-          </folding>
+          <caret line="281" selection-start-line="281" selection-end-line="281" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db.sqlite3">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="661">
+          <caret line="73" column="20" lean-forward="true" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="89" column="142" selection-start-line="89" selection-start-column="142" selection-end-line="89" selection-end-column="142" />
+        <state relative-caret-position="230">
+          <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="155" column="27" lean-forward="true" selection-start-line="155" selection-start-column="27" selection-end-line="155" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="94" selection-start-line="14" selection-start-column="94" selection-end-line="14" selection-end-column="94" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="51" column="1" lean-forward="true" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
         </state>
       </provider>
     </entry>

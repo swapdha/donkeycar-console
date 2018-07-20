@@ -5,6 +5,9 @@ from django.conf import settings
 from django.http import JsonResponse
 import simplejson as json
 import requests
+
+import urllib
+
 from itertools import islice
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
@@ -42,6 +45,8 @@ from django import template
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from console.models import *
+
+from urllib.parse import urlparse
 
 
 
@@ -95,11 +100,21 @@ def index(request):
     return HttpResponse(template.render({}, request))
 
 
+AUTHORIZE_URL = 'https://www.facebook.com/v3.0/dialog/oauth?'
+def facebook_login(request,path):
 
+    authSettings = {'client_id':'517921325231955',
+    'response_type':'code',
+    'state' : path,
+    'redirect_uri':'https://dconsole.proactivesystem.com.hk/dev/redirect/'}
 
-def login(request,accessToken):
+    params = urllib.parse.urlencode(authSettings)
+    print(AUTHORIZE_URL + params)
+    return HttpResponse(AUTHORIZE_URL + params)
 
-    data = {'accessToken': accessToken}
+def login(request,code):
+
+    data = {'code': code}
     url = "https://dconsole.proactivesystem.com.hk/dev/login"
     headers = {'Content-type': 'application/json'}
     response = requests.post(url, data=json.dumps(data), headers=headers)
@@ -120,9 +135,9 @@ def login(request,accessToken):
         request.session['name'] = name
         request.session['profile_picture'] = profile_image
 
-        return HttpResponse('True')
+        return HttpResponseRedirect('/')
     except:
-        return HttpResponse('False')
+        return HttpResponseRedirect('/')
 
 
 
@@ -990,7 +1005,8 @@ def create_job(request):
                     try:
                         response_url = (response.json())['url']
                     except:
-                        print("url not found ")
+                        return HttpResponseRedirect('/logout/')
+
                     o = urlparse(response_url)
                     path = o.path.split('/', 1)[1]
                     s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
