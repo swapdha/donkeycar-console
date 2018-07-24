@@ -12,7 +12,7 @@ Donkey Car console is a software deployed on the Pi to facilitate  the use of th
 
 This demo can resume how donkeycar console works.
 
-[![Demo CountPages alpha](docs/demo.gif)](https://www.youtube.com/my_videos?o=U)
+[![Demo CountPages alpha](docs/demo.gif)](https://www.youtube.com/watch?v=fe6z1_dQGQs)
 
 
 
