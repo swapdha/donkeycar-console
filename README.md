@@ -7,6 +7,15 @@ Donkey Car console is a software deployed on the Pi to facilitate  the use of th
 ![alt text](docs/job.png)
 
 
+
+## Demo
+
+This demo can resume how donkeycar console works.
+
+[![Demo CountPages alpha](docs/demo.gif)](https://www.youtube.com/my_videos?o=U)
+
+
+
 ## Why do you want to use Donkey Car Console ?
 
 Thanks to the Donkey Car Console, you  will have a user interface deployed on your pi that helps you manage all the process of turning your car into self-driving. 
