@@ -89,7 +89,7 @@ Step2. Validating the JWT token
 ### 1. Creating a session <br />
 Without a session the browser will display a facebook login button. <br />
 When a user press the facebook login button :<br />
-1.1 . The user is asked to authentificate to his facebook account and allow the application to get his public profile.<br />
+1.1 . The user is asked to authenticate to his facebook account and allow the application to get his public profile.<br />
 1.2 . This action will call the login API in the Serverless project.
 1.2 . The API invokes a lambda function to validate the access token using Facebook API.<br />
 1.3. If the access token is valid, the user will be unauthorized to login. <br />
