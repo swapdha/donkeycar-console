@@ -253,6 +253,10 @@ console.log(res)
 <script>
 $(document).ready(function() {
 
+
+if (document.getElementById("settings")) {
+
+console.log("begin")
         $.get('/local/directory/display/', function(data){
 
         console.log(data)
@@ -264,6 +268,7 @@ for (i = 0; i < res.length - 2; i++) {
 }
 
         });
+        }
 });
 </script>
 
