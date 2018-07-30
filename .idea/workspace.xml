@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e52cd1c0-5cc6-4633-9b26-dfbac383b49e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/console/templates/console/list_all_users.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/console/templates/console/list_all_users_jobs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/controller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/create_job.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/create_job.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/credentials.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/credentials.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/github.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/github.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/templates/console/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/jobs.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/jobs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/local_directory.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/local_directory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,11 +22,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="491" lean-forward="true" selection-start-line="491" selection-end-line="491" />
+            <state relative-caret-position="298">
+              <caret line="470" column="24" selection-start-line="470" selection-start-column="24" selection-end-line="470" selection-end-column="24" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -58,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="254" column="9" selection-start-line="254" selection-start-column="9" selection-end-line="254" selection-end-column="9" />
+            <state relative-caret-position="639">
+              <caret line="286" column="9" selection-start-line="286" selection-start-column="9" selection-end-line="286" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -120,7 +108,7 @@
         <entry file="file://$PROJECT_DIR$/console/templates/console/create_job.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="640">
-              <caret line="212" lean-forward="true" selection-start-line="212" selection-end-line="212" />
+              <caret line="212" selection-start-line="212" selection-end-line="212" />
             </state>
           </provider>
         </entry>
@@ -129,7 +117,7 @@
         <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="640">
-              <caret line="215" lean-forward="true" selection-start-line="215" selection-end-line="215" />
+              <caret line="215" selection-start-line="215" selection-end-line="215" />
               <folding>
                 <element signature="n#style#0;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -159,7 +147,6 @@
       <find>update_</find>
       <find>request.sess</find>
       <find>login</find>
-      <find>list_all</find>
       <find>jobs</find>
       <find>list</find>
       <find>autop</find>
@@ -171,6 +158,7 @@
       <find>save_cred</find>
       <find>local</find>
       <find>loca</find>
+      <find>list_all</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -200,14 +188,14 @@
         <option value="$PROJECT_DIR$/console/templates/console/local_directory.html" />
         <option value="$PROJECT_DIR$/console/urls.py" />
         <option value="$PROJECT_DIR$/console/views.py" />
-        <option value="$PROJECT_DIR$/console/templates/console/index.html" />
         <option value="$PROJECT_DIR$/console/templates/console/controller.html" />
         <option value="$PROJECT_DIR$/console/templates/console/github.html" />
         <option value="$PROJECT_DIR$/console/templates/console/credentials.html" />
+        <option value="$PROJECT_DIR$/console/templates/console/index.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="53" />
     <option name="y" value="23" />
     <option name="width" value="1785" />
@@ -310,7 +298,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="53" y="23" width="1785" height="817" extended-state="1" />
+    <frame x="53" y="23" width="1785" height="817" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2140056" />
@@ -602,7 +590,7 @@
     <entry file="file://$PROJECT_DIR$/console/templates/console/create_job.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="640">
-          <caret line="212" lean-forward="true" selection-start-line="212" selection-end-line="212" />
+          <caret line="212" selection-start-line="212" selection-end-line="212" />
         </state>
       </provider>
     </entry>
@@ -650,13 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="254" column="9" selection-start-line="254" selection-start-column="9" selection-end-line="254" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -667,7 +648,7 @@
     <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="640">
-          <caret line="215" lean-forward="true" selection-start-line="215" selection-end-line="215" />
+          <caret line="215" selection-start-line="215" selection-end-line="215" />
           <folding>
             <element signature="n#style#0;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -676,11 +657,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/console/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="491" lean-forward="true" selection-start-line="491" selection-end-line="491" />
+        <state relative-caret-position="298">
+          <caret line="470" column="24" selection-start-line="470" selection-start-column="24" selection-end-line="470" selection-end-column="24" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="639">
+          <caret line="286" column="9" selection-start-line="286" selection-start-column="9" selection-end-line="286" selection-end-column="9" />
         </state>
       </provider>
     </entry>

@@ -218,41 +218,9 @@ label{
 
 <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 --><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script>
-$(document).ready(function() {
 
-    $('#sel1').change(function(){
-        $('#abc option').remove();
-        var name = document.getElementById("sel1").value;
-        $.get('/availability/display/' + name + '/', function(data){
 
-var res = data.split("/H");
 
-for (i = 0; i < res.length - 1; i++) {
-            $('#abc').append('<option >'+res[i].concat("/H")+'</option> ' )
-}
-
-        });
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-
-        $.get('/local/directory/display/', function(data){
-
-        console.log(data)
-
-        var res = data.split("##");
-
-for (i = 0; i < res.length - 2; i++) {
-            $('#abcde').append('<option >'+res[i]+'</option> ' )
-}
-
-        });
-});
-</script>
 
 <script>
 $(document).ready(function() {
@@ -282,7 +250,41 @@ console.log(res)
         });
     })
 </script>
+<script>
+$(document).ready(function() {
 
+        $.get('/local/directory/display/', function(data){
+
+        console.log(data)
+
+        var res = data.split("##");
+
+for (i = 0; i < res.length - 2; i++) {
+            $('#abcde').append('<option >'+res[i]+'</option> ' )
+}
+
+        });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+
+    $('#sel1').change(function(){
+        $('#abc option').remove();
+        var name = document.getElementById("sel1").value;
+        $.get('/availability/display/' + name + '/', function(data){
+
+var res = data.split("/H");
+
+for (i = 0; i < res.length - 1; i++) {
+            $('#abc').append('<option >'+res[i].concat("/H")+'</option> ' )
+}
+
+        });
+    });
+});
+</script>
    <script>
 
     window.setInterval(function(){
