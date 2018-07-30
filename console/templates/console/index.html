@@ -218,9 +218,24 @@ label{
 
 <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 --><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+$(document).ready(function() {
 
+    $('#sel1').change(function(){
+        $('#abc option').remove();
+        var name = document.getElementById("sel1").value;
+        $.get('/availability/display/' + name + '/', function(data){
 
+var res = data.split("/H");
 
+for (i = 0; i < res.length - 1; i++) {
+            $('#abc').append('<option >'+res[i].concat("/H")+'</option> ' )
+}
+
+        });
+    });
+});
+</script>
 
 <script>
 $(document).ready(function() {
@@ -241,7 +256,10 @@ console.log(res)
               if ( role == "ROLE_USER|ROLE_ADMIN"){
 
               $('#admin').html(' <a href="/users/list/all/"><i  class="fa fa-user"></i> <span>Admin</span></a> ')
-              $('#alljobs').html(' <a href="/list/jobs/all/"><i class="fa fa-file-o"></i> <span>All Jobs</span></a> ')
+              $('#alljobs').html(' <a href="/list/jobs/all/"><i class="fa fa-file"></i> <span>All Jobs</span></a> ')
+
+
+
 
               }
 
@@ -250,46 +268,7 @@ console.log(res)
         });
     })
 </script>
-<script>
-$(document).ready(function() {
 
-
-if (document.getElementById("settings")) {
-
-console.log("begin")
-        $.get('/local/directory/display/', function(data){
-
-        console.log(data)
-
-        var res = data.split("##");
-
-for (i = 0; i < res.length - 2; i++) {
-            $('#abcde').append('<option >'+res[i]+'</option> ' )
-}
-
-        });
-        }
-});
-</script>
-
-<script>
-$(document).ready(function() {
-
-    $('#sel1').change(function(){
-        $('#abc option').remove();
-        var name = document.getElementById("sel1").value;
-        $.get('/availability/display/' + name + '/', function(data){
-
-var res = data.split("/H");
-
-for (i = 0; i < res.length - 1; i++) {
-            $('#abc').append('<option >'+res[i].concat("/H")+'</option> ' )
-}
-
-        });
-    });
-});
-</script>
    <script>
 
     window.setInterval(function(){

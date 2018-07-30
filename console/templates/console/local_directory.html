@@ -30,10 +30,8 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini" >
+<body class="hold-transition skin-blue sidebar-mini">
  {% block content %}
-  <div id="settings"> </div>
-
 </br>
                     {% if status == "Please enter a git repository" %}
 
@@ -112,10 +110,16 @@ Local Directory      </h1>
             <form role="form"  action="/settings/local/directory/"  method="POST" >
                                        {% csrf_token %}
 
-                  <select class="form-control select2" id="abcde" name="local_directory" style="width: 80%;">
-                                                <option disabled selected value> {{local_directory}} </option>
+              <div class="box-body">
+                <div class="form-group">
+                  <label >Local Directory </label>
+                  <input type="text"  name="local_directory"  class="form-control"  value="{{local_directory}}" />
 
-                </select>
+                </div>
+
+
+              </div>
+              <!-- /.box-body -->
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -181,8 +185,7 @@ Local Directory      </h1>
                <section class="content-header">
 
                    - The Github repository you want to use to train your model.
-                   - You can specify which extension you  want the model name to have. ( if you choose .h5 for  example your model name will be  {modelname}.h5 )
-               <br />
+                   - You can specify which extension you  want the model's name to have.
       <h1>
           Github Repository
       </h1>
