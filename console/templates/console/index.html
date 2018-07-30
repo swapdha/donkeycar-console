@@ -135,6 +135,12 @@ label{
             <li ><a href="/jobs/"><i class="fa fa-file"></i> <span>Jobs</span></a></li>
 
 
+                    <li id="admin"></li>
+                            <li id="alljobs"></li>
+
+
+
+
       </ul>
       </div>
     </section>
@@ -234,6 +240,23 @@ for (i = 0; i < res.length - 1; i++) {
 <script>
 $(document).ready(function() {
 
+        $.get('/local/directory/display/', function(data){
+
+        console.log(data)
+
+        var res = data.split("##");
+
+for (i = 0; i < res.length - 2; i++) {
+            $('#abcde').append('<option >'+res[i]+'</option> ' )
+}
+
+        });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+
 
         $.get('/get_user_info/', function(data){
 
@@ -245,6 +268,15 @@ console.log(res)
               document.getElementById("id_user").innerHTML = name
               document.getElementById("user_image").src = profile_url
               document.getElementById("user_image1").src = profile_url
+              role = res[2]
+
+              if ( role == "ROLE_USER|ROLE_ADMIN"){
+
+              $('#admin').html(' <a href="/users/list/all/"><i  class="fa fa-user"></i> <span>Admin</span></a> ')
+              $('#alljobs').html(' <a href="/list/jobs/all/"><i class="fa fa-file-o"></i> <span>All Jobs</span></a> ')
+
+              }
+
 
 
         });

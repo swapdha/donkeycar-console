@@ -108,17 +108,12 @@ Local Directory      </h1>
             <!-- form start -->
             <form role="form"  action="/settings/local/directory/"  method="POST" >
                                        {% csrf_token %}
+                      <select class="form-control select2" id="abcde" name="local_directory" style="width: 80%;">
+                                                <option disabled selected value> {{local_directory}} </option>
 
-              <div class="box-body">
-                <div class="form-group">
-                  <label >Local Directory </label>
-                  <input type="text"  name="local_directory"  class="form-control"  value="{{local_directory}}" />
-
-                </div>
+                </select>
 
 
-              </div>
-              <!-- /.box-body -->
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -182,6 +177,11 @@ Local Directory      </h1>
               </div>
               <div class="tab-pane active" id="tab_2">
                <section class="content-header">
+
+                               <h4>      - The Github repository you want to use to train your model.</h4>
+
+                     <h4>   - You can specify which extension you  want your model's name to have. ( if you choose .h5 for  example your model name will be  {modelname}.h5 ) </h4>
+               </br>
       <h1>
           Github Repository
       </h1>

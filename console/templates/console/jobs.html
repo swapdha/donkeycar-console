@@ -164,7 +164,7 @@
 
          <td> {{model.date| date:"Y-m-d H:i"}}</td>
          <td> {{model.duration}}</td>
-                  {% if model.state == "Finished" %}
+                  {% if model.state == "succeeded" %}
 
 
           <td>  <span class="label label-success"> {{ model.state }} </span></td>
@@ -201,7 +201,7 @@
 
 
 
-        {% if model.state == "Finished" %}
+        {% if model.state == "succeeded" %}
 
           <td>  <a href="/autopilot?id={{ model.id }}" class="btn btn-primary a-btn-slide-text"><span class="glyphicon glyphicon-play" aria-hidden="true"></span>    <span><strong> Autopilot</strong></span></a>
 

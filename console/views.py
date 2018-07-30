@@ -5,9 +5,11 @@ from django.conf import settings
 from django.http import JsonResponse
 import simplejson as json
 import requests
+from django import template
+
 
 import urllib
-
+from collections import defaultdict
 from itertools import islice
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
@@ -93,6 +95,7 @@ def myuser_index(f):
     return wrap
 
 
+
 @myuser_index
 def index(request):
 
@@ -124,6 +127,7 @@ def login(request,code):
         user_id = body['UserID']
         name = body['name']
         profile_image = body['profileImage']
+        role = body['role']
         count = facebook_user.objects.filter(facebook_id=user_id).count()
         if count == 0 :
             new_user = facebook_user(JWT_token=jwt_token,facebook_id=user_id,name=name,profile_picture_url=profile_image)
@@ -134,9 +138,11 @@ def login(request,code):
         request.session['userid'] = user_id
         request.session['name'] = name
         request.session['profile_picture'] = profile_image
+        request.session['role'] = role
 
         return HttpResponseRedirect('/')
-    except:
+    except Exception as e :
+        print(e)
         return HttpResponseRedirect('/')
 
 
@@ -155,7 +161,8 @@ def get_user_info(request):
     if 'userid' in request.session:
         name = request.session['name']
         profile_picture_url = request.session['profile_picture']
-        response = name+"&&"+profile_picture_url
+        role = request.session['role']
+        response = name+"&&"+profile_picture_url+"&&"+role
     else:
         response=""
     return HttpResponse(response)
@@ -426,6 +433,111 @@ def list_jobs(request):
        }
        template = loader.get_template('console/jobs.html')
        return HttpResponse(template.render(context, request))
+
+
+
+def grouping(l):
+    d = defaultdict(list)
+    print(d)
+    for key,value, role in l:
+        print("key_l",key,value,role)
+
+        new_key = str(key) + "?" + value
+        d[new_key].append(role)
+
+    for new_key in d:
+        d[new_key] = ' | '.join(d[new_key])
+
+    print(d.items())
+    return list(d.items())
+
+
+@myuser_login_required
+def list_all_users(request):
+    data = {
+        "facebook_id": request.session['userid']
+    }
+
+
+    url = "https://dconsole.proactivesystem.com.hk/dev/users/list"
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(url, json.dumps(data),headers=headers)
+
+    print(response.json())
+    users = json.loads(response.json()['body'])['users']
+    try:
+       list2 = grouping(users)
+       new_list = []
+       for elt in list2:
+           l = elt[0].split("?")
+           add = list([l[0],l[1],elt[1]])
+           new_list.append(add)
+
+       list2= new_list
+
+    except Exception as e:
+        print(e)
+        list2 = users
+
+    context = {
+        'users' : list2
+    }
+    template = loader.get_template('console/list_all_users.html')
+    return HttpResponse(template.render(context, request))
+
+
+def enable_user(request):
+    id = request.GET.get('id', '')
+
+
+    data = {
+        "facebook_id": request.session['userid'],
+        "user_id" : id
+    }
+
+
+    url = "https://dconsole.proactivesystem.com.hk/dev/user/enable"
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(url, json.dumps(data),headers=headers)
+    print(response.json())
+    return HttpResponseRedirect('/users/list/all/')
+
+
+
+def disable_user(request):
+    id = request.GET.get('id', '')
+
+
+    data = {
+        "facebook_id": request.session['userid'],
+        "user_id" : id
+    }
+
+
+    url = "https://dconsole.proactivesystem.com.hk/dev/user/disable"
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(url, json.dumps(data),headers=headers)
+    print(response.json())
+    return HttpResponseRedirect('/users/list/all/')
+
+
+@myuser_login_required
+def list_all_users_jobs(request):
+    data = {
+        "facebook_id": request.session['userid']
+    }
+
+
+    url = "https://dconsole.proactivesystem.com.hk/dev/jobs/list"
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(url, json.dumps(data),headers=headers)
+
+    print(response.json())
+    context = {
+        'models': json.loads(response.json()['body'])['list'],
+    }
+    template = loader.get_template('console/list_all_users_jobs.html')
+    return HttpResponse(template.render(context, request))
 
 
 @myuser_login_required
@@ -717,52 +829,7 @@ def update_status_by_id(request):
         else:
             model_name = 'job_' + str(job.id)
         verify_logs(job.id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,bucket_name)
-        if job.request_id != "0":
-                if now > job.date + timedelta(minutes=job.request_time):
-                    try:
-                        response = client.describe_spot_instance_requests(
-                            SpotInstanceRequestIds=[
-                                job.request_id
-                            ]
-                        )
-                        value = response['SpotInstanceRequests'][0]['Status']['Code']
-                        Jobs.objects.filter(id=job.id).update(request_state=value)
-                        instance_id = response['SpotInstanceRequests'][0]['InstanceId']
-                        Jobs.objects.filter(id=job.id).update(instance_id=instance_id)
-                    except Exception as e:
-                        print(e)
-        now = datetime.now(pytz.utc)
-        print("now",now)
-        if job.state == 'Pending':
-            if job.request_state == 'schedule-expired':
-                Jobs.objects.filter(id=job.id).update(state='Failed')
-                Jobs.objects.filter(id=job.id).update(duration='0')
-            else:
-                conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
-                                    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-                bucket = conn.get_bucket(bucket_name)
-                for key in bucket.list('models'):
-                    name = key.name.split('/')
-                    print(key)
-                    date = key.last_modified
-                    print(date)
-                    print("job.date" + str(job.date))
-                    if name[1] == model_name:
-                        Jobs.objects.filter(id=job.id).update(state='Finished')
-                        Jobs.objects.filter(id=job.id).update(size=key.size)
-                        duration = parse_datetime(date) - job.date
-                        hours, minutes, seconds = convert_timedelta(duration)
-                        time = str(minutes) + " m and " + str(seconds) + " s"
-                        print(time)
-                        Jobs.objects.filter(id=job.id).update(duration=time)
-                    elif now > job.date + timedelta(minutes=job.instance_max):
-                        Jobs.objects.filter(id=job.id).update(state='Failed')
-                        Jobs.objects.filter(id=job.id).update(duration='0')
 
-        job = Jobs.objects.get(id=id)
-        if job.request_state == 'instance-terminated-by-user' and job.state == 'Pending':
-            Jobs.objects.filter(id=job.id).update(state='Failed')
-            Jobs.objects.filter(id=job.id).update(duration='0')
 
         s3_data = {
             "model_name": model_name,
@@ -771,12 +838,27 @@ def update_status_by_id(request):
             'bucket_name': bucket_name
         }
 
+
         try:
             url = "https://dconsole.proactivesystem.com.hk/dev/job/update"
             headers = {'Content-type': 'application/json'}
-            requests.post(url, data=json.dumps(s3_data), headers=headers)
+            response = requests.post(url, data=json.dumps(s3_data), headers=headers)
+
         except:
             print("No update")
+        try:
+            job = json.loads(response.json()['body'])['job']
+            Jobs.objects.filter(id=id).update(request_state=job[10])
+            Jobs.objects.filter(id=id).update(state=job[6])
+            Jobs.objects.filter(id=id).update(duration=job[2])
+            Jobs.objects.filter(id=id).update(size=job[13])
+            Jobs.objects.filter(id=job.id).update(instance_id=job[12])
+
+        except Exception as e:
+            print(e)
+
+
+
         return HttpResponseRedirect('/jobs/')
 
 
@@ -920,7 +1002,7 @@ def create_job(request):
             updated_local_directory_name = Local_directory.name
         except:
             updated_local_directory_name = ''
-        choices = ['t2.micro', 't2.medium', 'g2.2xlarge', 'g2.8xlarge', 'p2.xlarge', 'p3.2xlarge', 'p3.8xlarge']
+        choices = ['g2.2xlarge', 'g2.8xlarge', 'p2.xlarge', 'p3.2xlarge', 'p3.8xlarge']
         errorMessage = ""
         conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                             aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -1021,7 +1103,7 @@ def create_job(request):
 
                         data = {'facebook_ID': request.session['userid'],'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,
                                 'github_repo': github_repo.name, 'termination_time': termination_time,
-                                'model_name': model_name, 'availability_zone': availability_zone[0], 'job_name':job_name,
+                                'model_name': model_name, 'availability_zone': availability_zone[0], 'job_name':job_name,"price":price,
                                 'instance_type': instance_type, 'request_time': request_time,'bucket_name': bucket_name}
 
                         try:
@@ -1199,6 +1281,16 @@ def check_availability_zone(instance_type):
         listA = [x for x in List if x['AvailabilityZone']== l]
         newlist.append(l + " " + listA[0]['SpotPrice']  + "/H")
     return newlist
+
+
+def display_local_repo(request):
+    choices_dir =  os.popen("find ~/ -type d -exec test -e '{}'/models -a -e '{}'/data  \;  -print").read()
+    list = choices_dir.split('\n')
+    dire =""
+    for l in list :
+        dire = dire + l + "##"
+
+    return HttpResponse(dire)
 
 def display_availability(request,name):
         response = check_availability_zone(name)

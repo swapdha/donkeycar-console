@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+            {% extends 'console/index.html' %}
+
+		<meta charset="utf-8">
+		<title> SmartAdmin </title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+
+
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/static/dist/css/skins/_all-skins.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<style>
+
+
+			a.btn:hover {
+     -webkit-transform: scale(1.1);
+     -moz-transform: scale(1.1);
+     -o-transform: scale(1.1);
+ }
+ a.btn {
+     -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+     -o-transform: scale(0.8);
+     -webkit-transition-duration: 0.5s;
+     -moz-transition-duration: 0.5s;
+     -o-transition-duration: 0.5s;
+ }
+		</style>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	</head>
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+{% block content %}
+
+
+    <!-- Content Header (Page header) -->
+</br>
+</br>
+
+
+    <section class="content" >
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+
+
+       <h3> &nbsp; All&nbsp;Jobs </h3>
+
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                            <div class="box-body">
+
+              <table id="example2" class="table table-hover">
+
+
+              <thead>
+                <tr>
+       <th>Job</th>
+
+         <th>Starting Time</th>
+                    <th> Training Duration </th>
+                    <th> Model State</th>
+
+         <th>Termination Time</th>
+          <th> Request State</th>
+         <th>Instance Type - AZ</th>
+                    <th>Price</th>
+         <th> Size </th>
+                    <th>AWS_KEY_ID</th>
+          <th> UserID</th>
+
+                </tr>
+
+                </thead>
+                  <tbody>
+
+                  {% if models %}
+        {% for  model in models %}
+
+      <tr>
+         <td>{{ model.0 }}</td>
+                   <td> {{model.7}}</td>
+
+          <td>{{model.2}}</td>
+
+                     {% if model.6 == "succeeded" %}
+
+
+          <td>  <span class="label label-success"> {{ model.6 }} </span></td>
+          {% else %}
+                            {% if model.6 == "Pending" %}
+                    <td>  <span class="label label-warning"> {{ model.6 }} </span></td>
+
+                                {% else %}
+                              <td>  <span class="label label-danger"> {{ model.6 }} </span></td>
+          {% endif %}
+                    {% endif %}
+
+          <td>{{model.9}} </td>
+
+
+
+          <td><span class="label label-warning"> {{model.10}}</span></td>
+          <td><div style="width: 100px;"> <span  class="label label-primary" >{{model.4 }}  </br></span><span  class="label label-primary" >{{model.5 }} </span></div> </td>
+<td>{{model.8}}</td>
+             <td> {{model.13}} </td>
+          <td> {{model.1}}</td>
+          <td>{{model.14}} </td>
+                    <tr> </tr>
+
+
+
+    {% endfor %}
+
+    {% endif %}
+
+                  </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+ {% endblock %}
+	</body>
+
+</html>
