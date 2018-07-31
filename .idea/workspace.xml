@@ -5,8 +5,8 @@
       <change beforePath="$PROJECT_DIR$/console/templates/console/controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/controller.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/templates/console/credentials.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/credentials.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/templates/console/github.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/github.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/templates/console/local_directory.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/local_directory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,8 +41,8 @@
       <file leaf-file-name="controller.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="139" column="20" lean-forward="true" selection-start-line="139" selection-start-column="20" selection-end-line="167" />
+            <state relative-caret-position="238">
+              <caret line="195" column="102" selection-start-line="195" selection-start-column="102" selection-end-line="195" selection-end-column="102" />
             </state>
           </provider>
         </entry>
@@ -77,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="github.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="github.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/templates/console/github.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="625">
-              <caret line="187" column="97" selection-start-line="187" selection-start-column="97" selection-end-line="187" selection-end-column="97" />
+            <state relative-caret-position="223">
+              <caret line="185" selection-start-line="185" selection-end-line="186" selection-end-column="102" />
               <folding>
                 <element signature="n#style#0;n#section#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#section#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -95,8 +95,8 @@
       <file leaf-file-name="credentials.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="179" column="97" selection-start-line="179" selection-start-column="97" selection-end-line="179" selection-end-column="97" />
+            <state relative-caret-position="340">
+              <caret line="177" column="102" selection-start-line="177" selection-start-column="102" selection-end-line="177" selection-end-column="102" />
             </state>
           </provider>
         </entry>
@@ -110,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="local_directory.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="local_directory.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="187" column="74" selection-start-line="187" selection-start-column="74" selection-end-line="187" selection-end-column="74" />
+            <state relative-caret-position="355">
+              <caret line="186" column="102" selection-start-line="186" selection-start-column="102" selection-end-line="186" selection-end-column="102" />
             </state>
           </provider>
         </entry>
@@ -138,8 +138,6 @@
       <find>jobs</find>
       <find>list</find>
       <find>autop</find>
-      <find>gith</find>
-      <find>github</find>
       <find>t2.mi</find>
       <find>br</find>
       <find>ec2</find>
@@ -153,6 +151,8 @@
       <find>local</find>
       <find>settings</find>
       <find>body</find>
+      <find>github</find>
+      <find>gith</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -181,11 +181,11 @@
         <option value="$PROJECT_DIR$/console/urls.py" />
         <option value="$PROJECT_DIR$/console/views.py" />
         <option value="$PROJECT_DIR$/console/templates/console/home.html" />
-        <option value="$PROJECT_DIR$/console/templates/console/local_directory.html" />
         <option value="$PROJECT_DIR$/console/templates/console/index.html" />
+        <option value="$PROJECT_DIR$/console/templates/console/github.html" />
         <option value="$PROJECT_DIR$/console/templates/console/credentials.html" />
         <option value="$PROJECT_DIR$/console/templates/console/controller.html" />
-        <option value="$PROJECT_DIR$/console/templates/console/github.html" />
+        <option value="$PROJECT_DIR$/console/templates/console/local_directory.html" />
       </list>
     </option>
   </component>
@@ -608,13 +608,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="187" column="74" selection-start-line="187" selection-start-column="74" selection-end-line="187" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -629,30 +622,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="179" column="97" selection-start-line="179" selection-start-column="97" selection-end-line="179" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="139" column="20" lean-forward="true" selection-start-line="139" selection-start-column="20" selection-end-line="167" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/github.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="187" column="97" selection-start-line="187" selection-start-column="97" selection-end-line="187" selection-end-column="97" />
+        <state relative-caret-position="223">
+          <caret line="185" selection-start-line="185" selection-end-line="186" selection-end-column="102" />
           <folding>
             <element signature="n#style#0;n#section#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#section#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#section#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#section#1;n#div#3;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/credentials.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="177" column="102" selection-start-line="177" selection-start-column="102" selection-end-line="177" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="195" column="102" selection-start-line="195" selection-start-column="102" selection-end-line="195" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="186" column="102" selection-start-line="186" selection-start-column="102" selection-end-line="186" selection-end-column="102" />
         </state>
       </provider>
     </entry>
