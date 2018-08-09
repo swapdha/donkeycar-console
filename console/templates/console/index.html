@@ -68,44 +68,6 @@ label{
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
-          <!-- Tasks: style can be found in dropdown.less -->
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-
-                  <img src=""  id="user_image" class="user-image" >
-
-         <span class="hidden-xs" id="id_user">    </span>
-
-
-
-
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-
-              <li class="user-header">
-
-                <img src="" id="user_image1"class="img-circle" >
-
-              </li>
-              <!-- Menu Body -->
-
-              <!-- Menu Footer-->
-              <li class="user-footer">
-
-                <div class="pull-right">
-                  <a  class="btn btn-default btn-flat" href="/logout/">Sign out</a>
-                </div>
-
-
-              </li>
-
-
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
           <li>
             <a>   </a>
           </li>
@@ -133,10 +95,6 @@ label{
 
         <li ><a href="/data/"><i class="fa fa-folder"></i><span> Data Folders</span></a></li>
             <li ><a href="/jobs/"><i class="fa fa-file"></i> <span>Jobs</span></a></li>
-
-
-                    <li id="admin"></li>
-                            <li id="alljobs"></li>
 
 
 
@@ -235,38 +193,6 @@ for (i = 0; i < res.length - 1; i++) {
         });
     });
 });
-</script>
-
-<script>
-$(document).ready(function() {
-
-
-        $.get('/get_user_info/', function(data){
-
-var res = data.split("&&");
-
-console.log(res)
-              name = res[0]
-              profile_url = res[1]
-              document.getElementById("id_user").innerHTML = name
-              document.getElementById("user_image").src = profile_url
-              document.getElementById("user_image1").src = profile_url
-              role = res[2]
-
-              if ( role == "ROLE_USER|ROLE_ADMIN"){
-
-              $('#admin').html(' <a href="/users/list/all/"><i  class="fa fa-user"></i> <span>Admin</span></a> ')
-              $('#alljobs').html(' <a href="/list/jobs/all/"><i class="fa fa-file"></i> <span>All Jobs</span></a> ')
-
-
-
-
-              }
-
-
-
-        });
-    })
 </script>
 
    <script>
