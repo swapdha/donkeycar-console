@@ -61,7 +61,7 @@ Thanks to the Donkey Car Console, you  will have a user interface deployed on yo
       
 - open the console with "hostname:8000" (e.g  d2.local:8000). You will see something like this :
 
-![alt text](docs/login.png)
+![alt text](docs/aws.png)
 
 
 #### Note: If you are using the image that supports v.2.5.1 of donkeycar and  before running as a service, you have to :
