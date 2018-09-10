@@ -22,7 +22,7 @@ Thanks to the Donkey Car Console, you  will have a user interface deployed on yo
 
 ## Disclaimer
 ### security warnings
-- Your credentials will be saved in your local database and will be used by our backend server to train your model.
+- Your credentials will be saved in your local database.
 - You are responsible for your own Pi security. If it is compromised you will lose your credentials saved in the local database .<br />
 - You should set a budget limit for your AWS account.<br />
 - We are not responsible for any lost of your AWS credentials.<br />
@@ -61,7 +61,7 @@ Thanks to the Donkey Car Console, you  will have a user interface deployed on yo
       
 - open the console with "hostname:8000" (e.g  d2.local:8000). You will see something like this :
 
-![alt text](docs/login.png)
+![alt text](docs/aws.png)
 
 
 #### Note: If you are using the image that supports v.2.5.1 of donkeycar and  before running as a service, you have to :
@@ -77,36 +77,6 @@ if you change the hostname of your car : <br />
 1. Change the hostname in /etc/hostname and /etc/hosts files  <br />
 2. You must add the new hostname to ALLOWED_HOSTS in "donkeycar-console/donkeycar-console/settings.py"
 
-## Authentification
-
-This application has a specific authentication mechanism and this  will explain how the user can login to it.
-To be authorized to use the lambda functions in the Serverless Project. The user has to have a session and a valid JWT token.
-
-Step1. Creating a Session
-Step2. Validating the JWT token
-
-
-### 1. Creating a session <br />
-Without a session the browser will display a facebook login button. <br />
-When a user press the facebook login button :<br />
-1.1 . The user is asked to authenticate to his facebook account and allow the application to get his public profile.<br />
-1.2 . This action will call the login API in the Serverless project.
-1.2 . The API invokes a lambda function to validate the access token using Facebook API.<br />
-1.3. If the access token is valid, the user will be unauthorized to login. <br />
-1.4. If it's valid, the login lambda function will generate a JWT token and send it back to the  Django backend.<br />
-1.5 . The JWT token is stored it in the database.<br />
-1.6 . A session is created and now the user is authorized to login to the application.<br />
-
-After creating a session, the user will be redirected to the home page of the DonkeyCar console application but he will not be able to invoke the rest of the lambda functions until the JWT token is validated and that will be explained in the second step.<br />
-### 2. Validating the JWT token <br />
-Now the user is redirected to home page but if he want to enquire about the number of credits he have. His JWT token must be verified.<br />
-2.1. The Django backend will call any serverless function with passing the stored JWT token as a parameter.<br />
-2.2. An authorize lambda function will be invoked to verify if the JWT token is valid or not.<br />
-2.3.  If the JWT token is valid, the second step is verified and the lambda function will send the result to the user.<br />
-2.4. If it's not valid, the user will be unauthorized to call the lambda function from the Serverless project.<br />
-
-
-After those two steps are verified, the user will have the ability to use the DonkeyCar console and the functions in the Serverless project.<br />
 
 ## How to set up the donkey car console settings ?
 
@@ -232,42 +202,6 @@ Those are the steps you should do :
 
 
 ![alt text](docs/instance.png)
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
