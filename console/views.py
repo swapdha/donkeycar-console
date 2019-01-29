@@ -1022,14 +1022,14 @@ def launch_ec2_instance(model_name,job_name,AWS_SECRET_ACCESS_KEY,AWS_ACCESS_KEY
                                    timestamp() {
                                     date +"%T"
                                    }
-                                   echo " Start The Script " 
+                                   echo " Start The Script "
                                    timestamp
                                    echo "sudo halt" | at now + ''' + (termination_time_s).encode('utf8') + b'''  minutes
 
                                    export LC_ALL="en_US.UTF-8"
                                    export LC_CTYPE="en_US.UTF-8"
                                    source /home/ubuntu/env/bin/activate
-                                   echo " Configure AWS credentials " 
+                                   echo " Configure AWS credentials "
                                    timestamp
                                    aws --version
                                    aws configure set aws_access_key_id ''' + (AWS_ACCESS_KEY_ID).encode('utf8')
@@ -1043,42 +1043,42 @@ def launch_ec2_instance(model_name,job_name,AWS_SECRET_ACCESS_KEY,AWS_ACCESS_KEY
                     'utf8') + b'''/''' + job_name.encode(
                     'utf8') + b'''_commands.log && aws s3 cp  /''' + job_name.encode(
                     'utf8') + b'''.log  s3://''' + (bucket_name).encode(
-                    'utf8') + b'''/" | at now + ''' + (termination_time_before_minute).encode('utf8') + b''' minutes 
+                    'utf8') + b'''/" | at now + ''' + (termination_time_before_minute).encode('utf8') + b''' minutes
 
-                                  echo " Cloning the github repository " 
+                                  echo " Cloning the github repository "
                                   timestamp
                                   git clone  -b master --single-branch ''' + (github_repo).encode('utf8') + b'''  donkeycar
-                                  echo " Install the dependencies " 
+                                  echo " Install the dependencies "
                                   timestamp
                                   pip install -e donkeycar
 
-                                  echo " Create d2 repository " 
+                                  echo " Create d2 repository "
                                   timestamp
 
                                   donkey createcar --path ~/d2
                                   donkey createcar  ~/d2
 
-                                  echo " Uncompress the tar file " 
+                                  echo " Uncompress the tar file "
                                   timestamp
-                                  sudo tar -zxf /home/ubuntu/''' + tarfile.encode('utf8') + b'''  -C /root/d2/data 
+                                  sudo tar -zxf /home/ubuntu/''' + tarfile.encode('utf8') + b'''  -C /root/d2/data
                                   export PATH=/usr/local/cuda/bin:$PATH
                                   export  LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
                                   export CUDA_HOME=/usr/local/cuda
-                                  echo " Install tensorflow-gpu  " 
+                                  echo " Install tensorflow-gpu  "
                                   timestamp
-                                  pip install tensorflow-gpu
-                                  echo " Start Training  " 
+                                  pip install tensorflow-gpu==1.10
+                                  echo " Start Training  "
                                   timestamp
                                   python ~/d2/manage.py train   --model  /root/d2/models/''' + model_name.encode(
                     'utf8') + b''' >> ''' + job_name.encode('utf8') + b'''.log
-                                  echo " Finish Training  " 
+                                  echo " Finish Training  "
                                   timestamp
-                                  echo " Upload the model to S3 " 
+                                  echo " Upload the model to S3 "
                                   timestamp
 
                                   aws s3 cp  /root/d2/models/''' + model_name.encode('utf8') + b'''  s3://''' + (
                                                  bucket_name).encode('utf8') + b'''/models/
-                                  echo " Finish uploading the model to S3 " 
+                                  echo " Finish uploading the model to S3 "
                                   timestamp
                                   aws s3 cp  /''' + job_name.encode('utf8') + b'''.log  s3://''' + (
                                                  bucket_name).encode('utf8') + b'''/
